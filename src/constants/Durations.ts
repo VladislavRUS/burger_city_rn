@@ -1,0 +1,5 @@
+export enum Durations {
+  PAGE_TRANSITION_DURATION = 700,
+  LOADING_DURATION = 500,
+  REQUEST_DURATION = 500,
+}
