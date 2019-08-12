@@ -19,4 +19,5 @@ export const StyledInput = styled.TextInput`
   font-size: 14px;
   font-weight: 600;
   color: rgb(114, 124, 142);
+  flex-grow: 1;
 `;

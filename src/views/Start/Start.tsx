@@ -1,31 +1,37 @@
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
+import { NavigationScreenProps } from 'react-navigation';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { Logo } from '../../components/Logo';
+import { RoundedCheckbox } from '../../components/RoundedCheckbox';
 import { Text } from '../../components/Text';
-import TextButton from '../../components/TextButton/TextButton';
+import { Colors } from '../../constants/Colors';
 import { Durations } from '../../constants/Durations';
+import { Routes } from '../../constants/Routes';
 import { Store } from '../../store';
 import { delay } from '../../utils/delay';
 import {
   BigTitleWrapper,
   BottomWrapper,
+  CheckboxWrapper,
   FormWrapper,
   InputsWrapper,
   InputWrapper,
   LoginWrapper,
   LogoWrapper,
   StartedWrapper,
+  TextButton,
   TextButtonsWrapper,
   TextButtonWrapper,
+  TextWrapper,
   TitleWrapper,
   Wrapper,
 } from './Start.styles';
 
 @observer
-class Start extends React.Component {
+class Start extends React.Component<NavigationScreenProps> {
   public static navigationOptions = {
     header: null,
   };
@@ -59,7 +65,7 @@ class Start extends React.Component {
           </Text>
         </BigTitleWrapper>
         <Button onPress={this.onPress} isLoading={this.isLoading}>
-          <Text fontSize={16} color={'#fff'}>
+          <Text fontSize={16} color={'#fff'} fontWeight={700}>
             Get start here
           </Text>
         </Button>
@@ -95,20 +101,54 @@ class Start extends React.Component {
             />
           </InputsWrapper>
           <TextButtonsWrapper>
-            <TextButton onPress={this.onToggleRemember}>Remember me</TextButton>
+            <TextButton onPress={this.onToggleRemember}>
+              <CheckboxWrapper>
+                <RoundedCheckbox isActive={Store.isRemember} />
+              </CheckboxWrapper>
+              <Text
+                fontSize={12}
+                fontWeight={600}
+                color={'rgba(255, 255, 255, 0.6)'}
+              >
+                Remember me
+              </Text>
+            </TextButton>
             <TextButtonWrapper>
               <TextButton onPress={this.onToggleRemember}>
-                Forgot password?
+                <Text
+                  fontSize={12}
+                  fontWeight={600}
+                  color={'rgba(255, 255, 255, 0.6)'}
+                >
+                  Forgot password?
+                </Text>
               </TextButton>
             </TextButtonWrapper>
           </TextButtonsWrapper>
-          <Button onPress={this.onPress} isLoading={this.isLoading}>
-            <Text fontSize={16} color={'#fff'}>
+          <Button onPress={this.onLogin} isLoading={this.isLoading}>
+            <Text fontSize={16} color={'#fff'} fontWeight={700}>
               Login
             </Text>
           </Button>
         </FormWrapper>
-        <BottomWrapper />
+        <BottomWrapper>
+          <TextButton>
+            <Text fontSize={12} fontWeight={600} color={Colors.MAIN_COLOR}>
+              New user? Sign up
+            </Text>
+          </TextButton>
+          <TextWrapper>
+            <Text
+              fontSize={10}
+              fontWeight={600}
+              color={'#fff'}
+              isCentered={true}
+            >
+              By signing up you indicate that you have read and agreed to the
+              Patch Terms of Service
+            </Text>
+          </TextWrapper>
+        </BottomWrapper>
       </LoginWrapper>
     );
   }
@@ -118,6 +158,15 @@ class Start extends React.Component {
     await delay(Durations.LOADING_DURATION);
     this.isLoading = false;
     this.isStarted = true;
+  };
+
+  private onLogin = async () => {
+    this.isLoading = true;
+    await delay(Durations.LOADING_DURATION);
+    this.isLoading = false;
+
+    const { navigation } = this.props;
+    navigation.navigate(Routes.MAIN_NAVIGATOR);
   };
 
   private onEmailChange = (text: string) => {

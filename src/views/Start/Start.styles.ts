@@ -21,20 +21,21 @@ export const BigTitleWrapper = styled.View`
 `;
 
 export const LoginWrapper = styled.View`
-  flex: 1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 30px;
-  padding-top: 120px;
+  margin-top: 120px;
 `;
 
 export const LogoWrapper = styled.View`
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 85px;
+  margin-top: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,10 +62,11 @@ export const InputWrapper = styled.View`
 `;
 
 export const BottomWrapper = styled.View`
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-  right: 30px;
+  margin-top: 40px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const TextButtonsWrapper = styled.View`
@@ -74,6 +76,24 @@ export const TextButtonsWrapper = styled.View`
   margin-bottom: 35px;
 `;
 
+export const TextButton = styled.TouchableOpacity`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+`;
+
 export const TextButtonWrapper = styled.View`
   margin-left: auto;
+`;
+
+export const CheckboxWrapper = styled.View`
+  margin-right: 4px;
+`;
+
+export const TextWrapper = styled.View`
+  margin-top: 30px;
+  max-width: 300px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 `;
