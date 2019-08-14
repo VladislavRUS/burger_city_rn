@@ -1,3 +1,4 @@
+import FastImage from 'react-native-fast-image';
 import Ripple from 'react-native-material-ripple';
 import styled from 'styled-components/native';
 
@@ -9,7 +10,7 @@ export const Wrapper = styled(Ripple)`
   background-color: black;
 `;
 
-export const Image = styled.Image`
+export const Image = styled(FastImage)`
   width: 100%;
   height: 100%;
 `;

@@ -5,29 +5,57 @@ import {
   createStackNavigator,
   createSwitchNavigator,
 } from 'react-navigation';
+import BurgerIcon from '../../components/Icons/BurgerIcon/BurgerIcon';
+import { HomeIcon } from '../../components/Icons/HomeIcon';
+import { TabBar } from '../../components/TabBar';
 import { Routes } from '../../constants/Routes';
-import Burgers from '../Burgers/Burgers';
+import { Burgers } from '../Burgers';
 import { Home } from '../Home';
 import { Start } from '../Start';
 
-const HomeNavigator = createStackNavigator({
-  [Routes.HOME]: {
-    screen: Home,
+const tabBarOptions = {
+  showLabel: false,
+  style: {
+    height: 87,
   },
-});
-
-HomeNavigator.navigationOptions = {
-  tabBarLabel: 'Home',
 };
 
-const BurgersNavigator = createStackNavigator({
-  [Routes.BURGERS]: {
-    screen: Burgers,
+const stackNavigatorOptions = {
+  cardStyle: {
+    backgroundColor: 'rgb(245, 245, 247)',
   },
-});
+};
+
+const HomeNavigator = createStackNavigator(
+  {
+    [Routes.HOME]: {
+      screen: Home,
+    },
+  },
+  stackNavigatorOptions,
+);
+
+HomeNavigator.navigationOptions = {
+  tabBarOptions,
+  tabBarIcon: ({ focused }: { focused: boolean }) => (
+    <TabBar isFocused={focused} title={'Home'} icon={HomeIcon} />
+  ),
+};
+
+const BurgersNavigator = createStackNavigator(
+  {
+    [Routes.BURGERS]: {
+      screen: Burgers,
+    },
+  },
+  stackNavigatorOptions,
+);
 
 BurgersNavigator.navigationOptions = {
-  tabBarLabel: 'Burgers',
+  tabBarOptions,
+  tabBarIcon: ({ focused }: { focused: boolean }) => (
+    <TabBar isFocused={focused} title={'Our Burgers'} icon={BurgerIcon} />
+  ),
 };
 
 const MainNavigator = createBottomTabNavigator({
@@ -49,7 +77,7 @@ const AppNavigator = createSwitchNavigator(
     },
   },
   {
-    initialRouteName: Routes.START,
+    initialRouteName: Routes.MAIN_NAVIGATOR,
   },
 );
 

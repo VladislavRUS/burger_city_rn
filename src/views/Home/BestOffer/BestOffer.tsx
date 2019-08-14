@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageSourcePropType } from 'react-native';
+import { FastImageSource } from 'react-native-fast-image';
 import Combo from '../../../models/Combo';
 import { Image, Wrapper } from './BestOffer.styles';
 
@@ -9,7 +9,7 @@ interface IBestOfferProps {
 
 const BestOffer: React.FC<IBestOfferProps> = ({ combo }) => (
   <Wrapper>
-    <Image source={combo.imageUrl as ImageSourcePropType} />
+    <Image source={combo.imageUrl as FastImageSource} />
   </Wrapper>
 );
 
