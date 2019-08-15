@@ -16,6 +16,7 @@ import {
 
 interface IBurgerProps {
   burger: Burger;
+  onPress: (burger: Burger) => void;
 }
 
 class BurgerItem extends React.PureComponent<IBurgerProps> {
@@ -23,7 +24,7 @@ class BurgerItem extends React.PureComponent<IBurgerProps> {
     const { burger } = this.props;
 
     return (
-      <Wrapper>
+      <Wrapper onPress={this.onPress}>
         <Image source={burger.imageUrl as FastImageSource} />
         <InfoWrapper>
           <NameWrapper>
@@ -43,6 +44,11 @@ class BurgerItem extends React.PureComponent<IBurgerProps> {
       </Wrapper>
     );
   }
+
+  private onPress = () => {
+    const { burger, onPress } = this.props;
+    onPress(burger);
+  };
 }
 
 export default BurgerItem;

@@ -5,7 +5,6 @@ import burger_4 from '../../assets/burgers/burger_4.png';
 import burger_5 from '../../assets/burgers/burger_5.png';
 import burger_6 from '../../assets/burgers/burger_6.png';
 import burger_7 from '../../assets/burgers/burger_7.png';
-import burger_8 from '../../assets/burgers/burger_8.png';
 
 import snack_1 from '../../assets/snacks/fries_1.jpg';
 import snack_2 from '../../assets/snacks/fries_2.jpg';
@@ -25,7 +24,6 @@ export {
   burger_5,
   burger_6,
   burger_7,
-  burger_8,
   snack_1,
   snack_2,
   drink_1,

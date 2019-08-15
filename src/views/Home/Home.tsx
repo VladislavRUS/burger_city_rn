@@ -1,7 +1,10 @@
 import React from 'react';
+import { NavigationScreenProps } from 'react-navigation';
 import Sticker from '../../components/Sticker/Sticker';
 import { Text } from '../../components/Text';
+import { Routes } from '../../constants/Routes';
 import Combo from '../../models/Combo';
+import { Store } from '../../store';
 import Mock from '../../store/Mock';
 import { BestOffer } from './BestOffer';
 import {
@@ -18,7 +21,7 @@ import {
   Wrapper,
 } from './Home.styles';
 
-class Home extends React.Component {
+class Home extends React.Component<NavigationScreenProps> {
   public static navigationOptions = {
     title: 'Burger City',
   };
@@ -92,7 +95,7 @@ class Home extends React.Component {
         <OffersList horizontal={true} showsHorizontalScrollIndicator={false}>
           {Mock.combos.map((combo: Combo, index: number) => (
             <BestOfferWrapper key={combo.id} marginLeft={index === 0 ? 22 : 0}>
-              <BestOffer combo={combo} />
+              <BestOffer combo={combo} onPress={this.onComboPress} />
             </BestOfferWrapper>
           ))}
         </OffersList>
@@ -100,12 +103,20 @@ class Home extends React.Component {
     );
   }
 
+  private onComboPress = (combo: Combo) => {
+    Store.setCurrentCombo(combo);
+
+    const { navigation } = this.props;
+    navigation.navigate(Routes.CUSTOMIZE);
+  };
+
   private onTrack = () => {
     console.log('onTrack');
   };
 
   private onOrder = () => {
-    console.log('onOrder');
+    const { navigation } = this.props;
+    navigation.navigate(Routes.BURGERS);
   };
 }
 

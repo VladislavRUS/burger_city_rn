@@ -13,7 +13,6 @@ class Mock {
     new Burger(5, 19, 'burgers.burger_5', Images.burger_5),
     new Burger(6, 18, 'burgers.burger_6', Images.burger_6),
     new Burger(7, 15, 'burgers.burger_7', Images.burger_7),
-    new Burger(8, 12, 'burgers.burger_8', Images.burger_8),
   ];
 
   public static snacks: Snack[] = [

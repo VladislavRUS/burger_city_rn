@@ -4,12 +4,15 @@ import {
   createBottomTabNavigator,
   createStackNavigator,
   createSwitchNavigator,
+  NavigationInjectedProps,
+  NavigationScreenProps,
 } from 'react-navigation';
 import BurgerIcon from '../../components/Icons/BurgerIcon/BurgerIcon';
 import { HomeIcon } from '../../components/Icons/HomeIcon';
 import { TabBar } from '../../components/TabBar';
 import { Routes } from '../../constants/Routes';
 import { Burgers } from '../Burgers';
+import Customize from '../Customize/Customize';
 import { Home } from '../Home';
 import { Start } from '../Start';
 
@@ -31,15 +34,29 @@ const HomeNavigator = createStackNavigator(
     [Routes.HOME]: {
       screen: Home,
     },
+    [Routes.CUSTOMIZE]: {
+      screen: Customize,
+      navigationOptions: {
+        tabBarVisible: false,
+      },
+    },
   },
   stackNavigatorOptions,
 );
 
-HomeNavigator.navigationOptions = {
-  tabBarOptions,
-  tabBarIcon: ({ focused }: { focused: boolean }) => (
-    <TabBar isFocused={focused} title={'Home'} icon={HomeIcon} />
-  ),
+HomeNavigator.navigationOptions = ({ navigation }: { navigation: any }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+
+  return {
+    tabBarOptions,
+    tabBarVisible,
+    tabBarIcon: ({ focused }: { focused: boolean }) => (
+      <TabBar isFocused={focused} title={'Home'} icon={HomeIcon} />
+    ),
+  };
 };
 
 const BurgersNavigator = createStackNavigator(
@@ -47,15 +64,26 @@ const BurgersNavigator = createStackNavigator(
     [Routes.BURGERS]: {
       screen: Burgers,
     },
+    [Routes.CUSTOMIZE]: {
+      screen: Customize,
+    },
   },
   stackNavigatorOptions,
 );
 
-BurgersNavigator.navigationOptions = {
-  tabBarOptions,
-  tabBarIcon: ({ focused }: { focused: boolean }) => (
-    <TabBar isFocused={focused} title={'Our Burgers'} icon={BurgerIcon} />
-  ),
+BurgersNavigator.navigationOptions = ({ navigation }: { navigation: any }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+
+  return {
+    tabBarOptions,
+    tabBarVisible,
+    tabBarIcon: ({ focused }: { focused: boolean }) => (
+      <TabBar isFocused={focused} title={'Our Burgers'} icon={BurgerIcon} />
+    ),
+  };
 };
 
 const MainNavigator = createBottomTabNavigator({

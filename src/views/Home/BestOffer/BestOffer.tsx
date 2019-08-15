@@ -5,12 +5,24 @@ import { Image, Wrapper } from './BestOffer.styles';
 
 interface IBestOfferProps {
   combo: Combo;
+  onPress: (combo: Combo) => void;
 }
 
-const BestOffer: React.FC<IBestOfferProps> = ({ combo }) => (
-  <Wrapper>
-    <Image source={combo.imageUrl as FastImageSource} />
-  </Wrapper>
-);
+class BestOffer extends React.PureComponent<IBestOfferProps> {
+  public render() {
+    const { combo } = this.props;
+
+    return (
+      <Wrapper onPress={this.onPress}>
+        <Image source={combo.imageUrl as FastImageSource} />
+      </Wrapper>
+    );
+  }
+
+  private onPress = () => {
+    const { combo, onPress } = this.props;
+    onPress(combo);
+  };
+}
 
 export default BestOffer;

@@ -3,14 +3,15 @@ import Ripple from 'react-native-material-ripple';
 import styled from 'styled-components/native';
 
 export const Wrapper = styled(Ripple)`
+  height: 86px;
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 20px 20px 20px 10px;
+  padding: 0 20px 0 10px;
   background-color: #fff;
   border-radius: 6px;
-  elevation: 3;
+  elevation: 15;
   shadow-opacity: 0.3;
   shadow-radius: 8px;
   shadow-color: #000;

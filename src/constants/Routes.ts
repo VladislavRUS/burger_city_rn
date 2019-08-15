@@ -5,4 +5,5 @@ export enum Routes {
   START = 'start',
   HOME = 'home',
   BURGERS = 'burgers',
+  CUSTOMIZE = 'customize',
 }

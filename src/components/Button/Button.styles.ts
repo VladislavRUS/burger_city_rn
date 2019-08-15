@@ -8,6 +8,6 @@ export const Wrapper = styled(Ripple)`
   justify-content: center;
   height: 52px;
   border-radius: 6px;
-  box-shadow: 0 8px 15px rgb(231, 234, 240);
   background-color: ${Colors.MAIN_COLOR};
+  elevation: 3;
 `;
