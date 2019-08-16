@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import { Durations } from '../constants/Durations';
 import Burger from '../models/Burger';
 import Combo from '../models/Combo';
@@ -14,6 +14,16 @@ class Store {
   public isRemember: boolean = false;
   @observable
   public order: Order;
+
+  @computed
+  get totalPrice() {
+    let sum = 0;
+    this.order.productOrders.forEach(productOrder => {
+      sum += productOrder.product.price;
+    });
+
+    return sum;
+  }
 
   constructor() {
     this.order = new Order();

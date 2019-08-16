@@ -1,5 +1,6 @@
 import React from 'react';
-import { NavigationScreenProps } from 'react-navigation';
+import { NavigationScreenProp, NavigationScreenProps } from 'react-navigation';
+import CartHeaderRight from '../../components/CartHeaderRight/CartHeaderRight';
 import { Routes } from '../../constants/Routes';
 import Burger from '../../models/Burger';
 import { Store } from '../../store';
@@ -8,8 +9,17 @@ import { BurgerItem } from './BurgerItem';
 import { BurgerItemWrapper, List, Wrapper } from './Burgers.styles';
 
 class Burgers extends React.Component<NavigationScreenProps> {
-  public static navigationOptions = {
-    title: 'Burger City',
+  public static navigationOptions = ({
+    navigation,
+  }: {
+    navigation: NavigationScreenProp<any, any>;
+  }) => {
+    const onPress = () => navigation.navigate(Routes.CART);
+
+    return {
+      title: 'BurgerCity',
+      headerRight: <CartHeaderRight onPress={onPress} />,
+    };
   };
 
   public render() {

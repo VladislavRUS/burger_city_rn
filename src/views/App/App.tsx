@@ -12,6 +12,7 @@ import { HomeIcon } from '../../components/Icons/HomeIcon';
 import { TabBar } from '../../components/TabBar';
 import { Routes } from '../../constants/Routes';
 import { Burgers } from '../Burgers';
+import Cart from '../Cart/Cart';
 import Customize from '../Customize/Customize';
 import { Home } from '../Home';
 import { Start } from '../Start';
@@ -29,17 +30,27 @@ const stackNavigatorOptions = {
   },
 };
 
+const commonStack = {
+  [Routes.CUSTOMIZE]: {
+    screen: Customize,
+    navigationOptions: {
+      tabBarVisible: false,
+    },
+  },
+  [Routes.CART]: {
+    screen: Cart,
+    navigationOptions: {
+      tabBarVisible: false,
+    },
+  },
+};
+
 const HomeNavigator = createStackNavigator(
   {
     [Routes.HOME]: {
       screen: Home,
     },
-    [Routes.CUSTOMIZE]: {
-      screen: Customize,
-      navigationOptions: {
-        tabBarVisible: false,
-      },
-    },
+    ...commonStack,
   },
   stackNavigatorOptions,
 );
@@ -64,9 +75,7 @@ const BurgersNavigator = createStackNavigator(
     [Routes.BURGERS]: {
       screen: Burgers,
     },
-    [Routes.CUSTOMIZE]: {
-      screen: Customize,
-    },
+    ...commonStack,
   },
   stackNavigatorOptions,
 );

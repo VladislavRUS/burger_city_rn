@@ -8,7 +8,7 @@ export const Wrapper = styled.View`
   padding: 0 20px;
   background-color: #fff;
   border-radius: 6px;
-  box-shadow: 0 4px 20px rgba(96, 100, 112, 0.1);
+  elevation: 3;
 `;
 
 export const IconWrapper = styled.View`

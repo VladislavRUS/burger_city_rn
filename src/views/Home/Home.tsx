@@ -1,6 +1,7 @@
 import React from 'react';
-import { NavigationScreenProps } from 'react-navigation';
-import Sticker from '../../components/Sticker/Sticker';
+import { NavigationScreenProp, NavigationScreenProps } from 'react-navigation';
+import { CartHeaderRight } from '../../components/CartHeaderRight';
+import { Sticker } from '../../components/Sticker';
 import { Text } from '../../components/Text';
 import { Routes } from '../../constants/Routes';
 import Combo from '../../models/Combo';
@@ -22,8 +23,17 @@ import {
 } from './Home.styles';
 
 class Home extends React.Component<NavigationScreenProps> {
-  public static navigationOptions = {
-    title: 'Burger City',
+  public static navigationOptions = ({
+    navigation,
+  }: {
+    navigation: NavigationScreenProp<any, any>;
+  }) => {
+    const onPress = () => navigation.navigate(Routes.CART);
+
+    return {
+      title: 'BurgerCity',
+      headerRight: <CartHeaderRight onPress={onPress} />,
+    };
   };
 
   private headerTexts = [
