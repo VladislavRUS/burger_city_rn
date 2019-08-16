@@ -4,11 +4,13 @@ import { Text } from '../../components/Text';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import FastImage, { FastImageSource } from 'react-native-fast-image';
+import { NavigationScreenProps } from 'react-navigation';
 import { Button } from '../../components/Button';
 import QuantityButton from '../../components/QuantityButton/QuantityButton';
 import { Categories } from '../../constants/Categories';
 import Combo from '../../models/Combo';
 import ProductModel from '../../models/Product';
+import ProductOrder from '../../models/ProductOrder';
 import { Store } from '../../store';
 import {
   ButtonsWrapper,
@@ -21,14 +23,15 @@ import {
 import Product from './Product/Product';
 
 @observer
-class Customize extends React.Component {
+class Customize extends React.Component<NavigationScreenProps> {
   public static navigationOptions = {
     tabBarVisible: false,
   };
 
   @observable
+  private isLoading = false;
+  @observable
   private quantity: number = 1;
-
   private currentProduct!: ProductModel;
 
   constructor(props: any) {
@@ -90,7 +93,7 @@ class Customize extends React.Component {
           />
         </ButtonWrapper>
         <CartButtonWrapper>
-          <Button onPress={this.onAddToCart}>
+          <Button onPress={this.onAddToCart} isLoading={this.isLoading}>
             <Text color={'#fff'} fontSize={16} fontWeight={700}>
               Add to cart
             </Text>
@@ -120,8 +123,15 @@ class Customize extends React.Component {
     }
   };
 
-  private onAddToCart = () => {
-    console.log('onAddToCart');
+  private onAddToCart = async () => {
+    this.isLoading = true;
+    const productOrder = new ProductOrder(this.currentProduct, this.quantity);
+
+    await Store.addToCart(productOrder);
+    this.isLoading = false;
+
+    const { navigation } = this.props;
+    navigation.goBack();
   };
 }
 
