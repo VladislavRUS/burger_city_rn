@@ -4,7 +4,8 @@ import { Text } from '../../components/Text';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import FastImage, { FastImageSource } from 'react-native-fast-image';
-import { NavigationScreenProps } from 'react-navigation';
+import { NavigationScreenProp, NavigationScreenProps } from 'react-navigation';
+import ArrowHeaderLeft from '../../components/ArrowHeaderLeft/ArrowHeaderLeft';
 import { Button } from '../../components/Button';
 import QuantityButton from '../../components/QuantityButton/QuantityButton';
 import { Categories } from '../../constants/Categories';
@@ -24,8 +25,17 @@ import Product from './Product/Product';
 
 @observer
 class Customize extends React.Component<NavigationScreenProps> {
-  public static navigationOptions = {
-    tabBarVisible: false,
+  public static navigationOptions = ({
+    navigation,
+  }: {
+    navigation: NavigationScreenProp<any, any>;
+  }) => {
+    const onPress = () => navigation.goBack();
+
+    return {
+      title: 'Burger City',
+      headerLeft: <ArrowHeaderLeft onPress={onPress} />,
+    };
   };
 
   @observable
