@@ -6,7 +6,7 @@ interface ILoaderProps {
 }
 
 const Loader: React.FC<ILoaderProps> = ({ color = '#000' }) => (
-  <ActivityIndicator color={color} />
+  <ActivityIndicator color={color} size={'large'} />
 );
 
 export default Loader;
