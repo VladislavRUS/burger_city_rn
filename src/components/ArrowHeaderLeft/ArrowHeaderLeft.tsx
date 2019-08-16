@@ -1,5 +1,6 @@
 import React from 'react';
-import { ArrowImage, Wrapper } from './ArrowHeaderLeft.styles';
+import BackIcon from '../Icons/BackIcon/BackIcon';
+import { Wrapper } from './ArrowHeaderLeft.styles';
 
 interface IArrowHeaderLeftProps {
   onPress: () => void;
@@ -7,7 +8,7 @@ interface IArrowHeaderLeftProps {
 
 const ArrowHeaderLeft: React.FC<IArrowHeaderLeftProps> = ({ onPress }) => (
   <Wrapper onPress={onPress}>
-    <ArrowImage />
+    <BackIcon />
   </Wrapper>
 );
 

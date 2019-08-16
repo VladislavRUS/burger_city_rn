@@ -1,5 +1,6 @@
 import React from 'react';
-import { CartImage, Wrapper } from './CartHeaderRight.styles';
+import CartIcon from '../Icons/CartIcon/CartIcon';
+import { Wrapper } from './CartHeaderRight.styles';
 
 interface ICartHeaderRightProps {
   onPress: () => void;
@@ -11,7 +12,7 @@ class CartHeaderRight extends React.PureComponent<ICartHeaderRightProps> {
 
     return (
       <Wrapper onPress={onPress}>
-        <CartImage />
+        <CartIcon />
       </Wrapper>
     );
   }
