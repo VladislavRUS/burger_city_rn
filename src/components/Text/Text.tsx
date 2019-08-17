@@ -1,4 +1,5 @@
 import React from 'react';
+import { Colors } from '../../constants/Colors';
 import { StyledText } from './Text.styles';
 
 interface ITextProps {
@@ -11,7 +12,7 @@ interface ITextProps {
 const Text: React.FC<ITextProps> = ({
   fontSize = 14,
   fontWeight = 400,
-  color = '#000',
+  color = Colors.MAIN_DARK_COLOR,
   isCentered = false,
   children,
 }) => (

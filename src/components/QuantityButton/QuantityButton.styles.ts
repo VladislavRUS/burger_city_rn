@@ -1,21 +1,5 @@
 import styled from 'styled-components/native';
 
-export const Wrapper = styled.View`
-  height: 52px;
-  border-radius: 6px;
-  elevation: 3;
-  background-color: #fff;
-  shadow-opacity: 0.3;
-  shadow-radius: 8px;
-  shadow-color: #000;
-  shadow-offset: 0px 0px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-`;
-
 export const RoundWrapper = styled.TouchableOpacity`
   height: 18px;
   width: 18px;
@@ -25,4 +9,11 @@ export const RoundWrapper = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   padding-bottom: 2px;
+`;
+
+export const Content = styled.View`
+  flex-grow: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;

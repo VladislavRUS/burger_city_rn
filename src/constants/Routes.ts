@@ -7,4 +7,5 @@ export enum Routes {
   BURGERS = 'burgers',
   CUSTOMIZE = 'customize',
   CART = 'cart',
+  DELIVERY_DETAILS = 'deliveryDetails',
 }

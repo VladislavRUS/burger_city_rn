@@ -14,6 +14,7 @@ import { Routes } from '../../constants/Routes';
 import { Burgers } from '../Burgers';
 import Cart from '../Cart/Cart';
 import Customize from '../Customize/Customize';
+import DeliveryDetails from '../DeliveryDetails/DeliveryDetails';
 import { Home } from '../Home';
 import { Start } from '../Start';
 
@@ -39,6 +40,12 @@ const commonStack = {
   },
   [Routes.CART]: {
     screen: Cart,
+    navigationOptions: {
+      tabBarVisible: false,
+    },
+  },
+  [Routes.DELIVERY_DETAILS]: {
+    screen: DeliveryDetails,
     navigationOptions: {
       tabBarVisible: false,
     },

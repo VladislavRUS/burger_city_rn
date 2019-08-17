@@ -3,13 +3,14 @@ import React from 'react';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { Keyboard } from 'react-native';
-import { NavigationScreenProp } from 'react-navigation';
+import { NavigationScreenProp, NavigationScreenProps } from 'react-navigation';
 import { ArrowHeaderLeft } from '../../components/ArrowHeaderLeft';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { OrderItems } from '../../components/OrderItems';
 import { Text } from '../../components/Text';
 import { Colors } from '../../constants/Colors';
+import { Routes } from '../../constants/Routes';
 import { Store } from '../../store';
 import {
   BottomButtonWrapper,
@@ -25,7 +26,7 @@ import {
 } from './Cart.styles';
 
 @observer
-class Cart extends React.Component {
+class Cart extends React.Component<NavigationScreenProps> {
   public static navigationOptions = ({
     navigation,
   }: {
@@ -132,7 +133,11 @@ class Cart extends React.Component {
             Промо код
           </Text>
         </PromoTextWrapper>
-        <Input value={this.promoCode} onChangeText={this.onPromoChange} />
+        <Input
+          value={this.promoCode}
+          onChangeText={this.onPromoChange}
+          placeholder={'Введите промокод'}
+        />
       </PromoWrapper>
     );
   }
@@ -142,7 +147,8 @@ class Cart extends React.Component {
   };
 
   private onCheckout = () => {
-    console.log('onCheckout');
+    const { navigation } = this.props;
+    navigation.navigate(Routes.DELIVERY_DETAILS);
   };
 }
 
