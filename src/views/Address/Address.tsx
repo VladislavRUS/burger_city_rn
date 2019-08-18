@@ -40,12 +40,16 @@ class Address extends React.Component<NavigationScreenProps> {
   }, 300);
 
   public render() {
+    const searchText = Store.order.addressDescription
+      ? Store.order.addressDescription.title
+      : 'Search';
+
     return (
       <Wrapper>
         <Input
           value={this.searchStr}
           onChangeText={this.onChangeText}
-          placeholder={'Search'}
+          placeholder={searchText}
           icon={<SearchIcon />}
           autoFocus={true}
         />
