@@ -2,10 +2,12 @@ import React from 'react';
 
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
-import { NavigationScreenProp } from 'react-navigation';
+import { NavigationScreenProp, NavigationScreenProps } from 'react-navigation';
 import ArrowHeaderLeft from '../../components/ArrowHeaderLeft/ArrowHeaderLeft';
 import SelectButton from '../../components/SelectButton/SelectButton';
 import { Text } from '../../components/Text';
+import { Routes } from '../../constants/Routes';
+import { Store } from '../../store';
 import {
   AddressDetailWrapper,
   SelectButtonWrapper,
@@ -20,7 +22,7 @@ enum Options {
 }
 
 @observer
-class DeliveryDetails extends React.Component {
+class DeliveryDetails extends React.Component<NavigationScreenProps> {
   public static navigationOptions = ({
     navigation,
   }: {
@@ -44,6 +46,10 @@ class DeliveryDetails extends React.Component {
   ];
 
   public render() {
+    const addressPanelText = Store.order.addressDescription
+      ? Store.order.addressDescription.title
+      : 'Адрес доставки';
+
     return (
       <Wrapper>
         {this.renderTitle()}
@@ -51,7 +57,7 @@ class DeliveryDetails extends React.Component {
         <AddressDetailWrapper>
           <Detail
             title={'Адрес доставки'}
-            panelText={'Адрес доставки'}
+            panelText={addressPanelText}
             onPress={this.onAddressPress}
           />
         </AddressDetailWrapper>
@@ -94,7 +100,8 @@ class DeliveryDetails extends React.Component {
   };
 
   private onAddressPress = () => {
-    console.log('onAddressPress');
+    const { navigation } = this.props;
+    navigation.navigate(Routes.ADDRESS);
   };
 }
 

@@ -8,4 +8,5 @@ export enum Routes {
   CUSTOMIZE = 'customize',
   CART = 'cart',
   DELIVERY_DETAILS = 'deliveryDetails',
+  ADDRESS = 'address',
 }

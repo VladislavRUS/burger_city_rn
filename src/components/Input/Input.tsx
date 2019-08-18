@@ -7,6 +7,7 @@ interface IInputProps {
   placeholder?: string;
   icon?: React.ReactNode;
   isSecured?: boolean;
+  autoFocus?: boolean;
 }
 
 const Input: React.FC<IInputProps> = ({
@@ -15,6 +16,7 @@ const Input: React.FC<IInputProps> = ({
   icon = null,
   isSecured = false,
   placeholder = '',
+  autoFocus = false,
 }) => (
   <Wrapper>
     {icon && <IconWrapper>{icon}</IconWrapper>}
@@ -23,6 +25,7 @@ const Input: React.FC<IInputProps> = ({
       onChangeText={onChangeText}
       secureTextEntry={isSecured}
       placeholder={placeholder}
+      autoFocus={autoFocus}
     />
   </Wrapper>
 );

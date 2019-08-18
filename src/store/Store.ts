@@ -1,5 +1,7 @@
 import { action, computed, observable } from 'mobx';
+import Api from '../api/Api';
 import { Durations } from '../constants/Durations';
+import AddressDescription from '../models/AddressDescription';
 import Burger from '../models/Burger';
 import Combo from '../models/Combo';
 import Order from '../models/Order';
@@ -14,6 +16,7 @@ class Store {
   public isRemember: boolean = false;
   @observable
   public order: Order;
+  private apiKey!: string;
 
   @computed
   get totalPrice() {
@@ -27,6 +30,10 @@ class Store {
 
   constructor() {
     this.order = new Order();
+  }
+
+  public init(config: any) {
+    this.apiKey = config.apiKey;
   }
 
   @action
@@ -52,6 +59,23 @@ class Store {
     }
 
     this.order.addProductOrder(productOrder);
+  }
+
+  @action
+  public setAddress(addressDescription: AddressDescription) {
+    this.order.addressDescription = addressDescription;
+  }
+
+  public async findPlace(input: string) {
+    const descriptions: AddressDescription[] = [];
+
+    const json = await Api.findPlace(input, this.apiKey);
+    const predictions = json.predictions;
+    predictions.forEach((prediction: any) => {
+      descriptions.push(AddressDescription.fromJson(prediction));
+    });
+
+    return descriptions;
   }
 }
 

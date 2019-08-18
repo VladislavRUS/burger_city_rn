@@ -1,3 +1,4 @@
+import { observable } from 'mobx';
 import AddressDescription from './AddressDescription';
 import ProductOrder from './ProductOrder';
 
@@ -6,6 +7,7 @@ class Order {
   public dateTime: Date;
   public isInAdvance: boolean;
   public isConfirmed: boolean;
+  @observable
   public addressDescription: AddressDescription | null;
 
   constructor() {

@@ -4,17 +4,16 @@ import {
   createBottomTabNavigator,
   createStackNavigator,
   createSwitchNavigator,
-  NavigationInjectedProps,
-  NavigationScreenProps,
 } from 'react-navigation';
-import BurgerIcon from '../../components/Icons/BurgerIcon/BurgerIcon';
+import { BurgerIcon } from '../../components/Icons/BurgerIcon';
 import { HomeIcon } from '../../components/Icons/HomeIcon';
 import { TabBar } from '../../components/TabBar';
 import { Routes } from '../../constants/Routes';
+import { Address } from '../Address';
 import { Burgers } from '../Burgers';
-import Cart from '../Cart/Cart';
-import Customize from '../Customize/Customize';
-import DeliveryDetails from '../DeliveryDetails/DeliveryDetails';
+import { Cart } from '../Cart';
+import { Customize } from '../Customize';
+import { DeliveryDetails } from '../DeliveryDetails';
 import { Home } from '../Home';
 import { Start } from '../Start';
 
@@ -46,6 +45,12 @@ const commonStack = {
   },
   [Routes.DELIVERY_DETAILS]: {
     screen: DeliveryDetails,
+    navigationOptions: {
+      tabBarVisible: false,
+    },
+  },
+  [Routes.ADDRESS]: {
+    screen: Address,
     navigationOptions: {
       tabBarVisible: false,
     },
