@@ -7,6 +7,7 @@ import {
 } from 'react-navigation';
 import { BurgerIcon } from '../../components/Icons/BurgerIcon';
 import { HomeIcon } from '../../components/Icons/HomeIcon';
+import WalletIcon from '../../components/Icons/WalletIcon/WalletIcon';
 import { TabBar } from '../../components/TabBar';
 import { Routes } from '../../constants/Routes';
 import { Address } from '../Address';
@@ -17,6 +18,7 @@ import { DateTime } from '../DateTime';
 import { DeliveryDetails } from '../DeliveryDetails';
 import { Home } from '../Home';
 import { Start } from '../Start';
+import { Wallet } from '../Wallet';
 
 const tabBarOptions = {
   showLabel: false,
@@ -114,14 +116,47 @@ BurgersNavigator.navigationOptions = ({ navigation }: { navigation: any }) => {
   };
 };
 
-const MainNavigator = createBottomTabNavigator({
-  [Routes.HOME_NAVIGATOR]: {
-    screen: HomeNavigator,
+const WalletNavigator = createStackNavigator(
+  {
+    [Routes.WALLET]: {
+      screen: Wallet,
+    },
+    ...commonStack,
   },
-  [Routes.BURGERS_NAVIGATOR]: {
-    screen: BurgersNavigator,
+  stackNavigatorOptions,
+);
+
+WalletNavigator.navigationOptions = ({ navigation }: { navigation: any }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+
+  return {
+    tabBarOptions,
+    tabBarVisible,
+    tabBarIcon: ({ focused }: { focused: boolean }) => (
+      <TabBar isFocused={focused} title={'Wallet'} icon={WalletIcon} />
+    ),
+  };
+};
+
+const MainNavigator = createBottomTabNavigator(
+  {
+    [Routes.HOME_NAVIGATOR]: {
+      screen: HomeNavigator,
+    },
+    [Routes.BURGERS_NAVIGATOR]: {
+      screen: BurgersNavigator,
+    },
+    [Routes.WALLET_NAVIGATOR]: {
+      screen: WalletNavigator,
+    },
   },
-});
+  {
+    initialRouteName: Routes.WALLET_NAVIGATOR,
+  },
+);
 
 const AppNavigator = createSwitchNavigator(
   {

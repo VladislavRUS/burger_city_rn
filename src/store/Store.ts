@@ -5,8 +5,10 @@ import AddressDescription from '../models/AddressDescription';
 import Burger from '../models/Burger';
 import Combo from '../models/Combo';
 import Order from '../models/Order';
+import OrderPayment from '../models/OrderPayment';
 import ProductOrder from '../models/ProductOrder';
 import { delay } from '../utils/delay';
+import Mock from './Mock';
 
 class Store {
   public currentBurger: Burger | null = null;
@@ -16,6 +18,9 @@ class Store {
   public isRemember: boolean = false;
   @observable
   public order: Order;
+  @observable
+  public orderPayment: OrderPayment;
+  public orderPayments: OrderPayment[];
   private apiKey!: string;
 
   @computed
@@ -30,6 +35,8 @@ class Store {
 
   constructor() {
     this.order = new Order();
+    this.orderPayments = Mock.orderPayments;
+    this.orderPayment = this.orderPayments[0];
   }
 
   public init(config: any) {
@@ -81,6 +88,11 @@ class Store {
   @action
   public setOrderDateTime(date: Date) {
     this.order.dateTime = date;
+  }
+
+  @action
+  public setOrderPayment(orderPayment: OrderPayment) {
+    this.orderPayment = orderPayment;
   }
 }
 

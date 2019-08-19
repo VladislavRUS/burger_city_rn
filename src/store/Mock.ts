@@ -1,6 +1,7 @@
 import Burger from '../models/Burger';
 import Combo from '../models/Combo';
 import Drink from '../models/Drink';
+import OrderPayment from '../models/OrderPayment';
 import Snack from '../models/Snack';
 import * as Images from './images';
 
@@ -45,6 +46,13 @@ class Mock {
       Mock.snacks[Mock.snacks.length - 1],
       Mock.drinks[0],
     ]),
+  ];
+
+  public static orderPayments: OrderPayment[] = [
+    new OrderPayment('M Wallet'),
+    new OrderPayment('Google Pay'),
+    new OrderPayment('Apple Pay'),
+    new OrderPayment('Samsung Pay '),
   ];
 }
 
