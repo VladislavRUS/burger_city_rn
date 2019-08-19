@@ -1,13 +1,29 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import CheckmarkIcon from '../../components/Icons/CheckmarkIcon/CheckmarkIcon';
+import { NavigationScreenProp } from 'react-navigation';
+import { CartHeaderRight } from '../../components/CartHeaderRight';
+import { CheckmarkIcon } from '../../components/Icons/CheckmarkIcon';
 import { Text } from '../../components/Text';
+import { Routes } from '../../constants/Routes';
 import OrderPayment from '../../models/OrderPayment';
 import { Store } from '../../store';
 import { IconWrapper, OrderPaymentWrapper, Wrapper } from './Wallet.styles';
 
 @observer
 class Wallet extends React.Component {
+  public static navigationOptions = ({
+    navigation,
+  }: {
+    navigation: NavigationScreenProp<any, any>;
+  }) => {
+    const onPress = () => navigation.navigate(Routes.CART);
+
+    return {
+      title: 'BurgerCity',
+      headerRight: <CartHeaderRight onPress={onPress} />,
+    };
+  };
+
   public render() {
     return (
       <Wrapper>
