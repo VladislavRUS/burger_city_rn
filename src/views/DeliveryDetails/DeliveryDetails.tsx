@@ -139,7 +139,8 @@ class DeliveryDetails extends React.Component<NavigationScreenProps> {
   };
 
   private onContinue = () => {
-    console.log('onSelectPress');
+    const { navigation } = this.props;
+    navigation.navigate(Routes.ORDER);
   };
 }
 

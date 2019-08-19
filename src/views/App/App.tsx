@@ -17,6 +17,7 @@ import { Customize } from '../Customize';
 import { DateTime } from '../DateTime';
 import { DeliveryDetails } from '../DeliveryDetails';
 import { Home } from '../Home';
+import { Order } from '../Order';
 import { Start } from '../Start';
 import { Wallet } from '../Wallet';
 
@@ -60,6 +61,12 @@ const commonStack = {
   },
   [Routes.DATE_TIME]: {
     screen: DateTime,
+    navigationOptions: {
+      tabBarVisible: false,
+    },
+  },
+  [Routes.ORDER]: {
+    screen: Order,
     navigationOptions: {
       tabBarVisible: false,
     },
@@ -141,22 +148,17 @@ WalletNavigator.navigationOptions = ({ navigation }: { navigation: any }) => {
   };
 };
 
-const MainNavigator = createBottomTabNavigator(
-  {
-    [Routes.HOME_NAVIGATOR]: {
-      screen: HomeNavigator,
-    },
-    [Routes.BURGERS_NAVIGATOR]: {
-      screen: BurgersNavigator,
-    },
-    [Routes.WALLET_NAVIGATOR]: {
-      screen: WalletNavigator,
-    },
+const MainNavigator = createBottomTabNavigator({
+  [Routes.HOME_NAVIGATOR]: {
+    screen: HomeNavigator,
   },
-  {
-    initialRouteName: Routes.WALLET_NAVIGATOR,
+  [Routes.BURGERS_NAVIGATOR]: {
+    screen: BurgersNavigator,
   },
-);
+  [Routes.WALLET_NAVIGATOR]: {
+    screen: WalletNavigator,
+  },
+});
 
 const AppNavigator = createSwitchNavigator(
   {

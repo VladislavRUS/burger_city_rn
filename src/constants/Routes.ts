@@ -12,4 +12,5 @@ export enum Routes {
   ADDRESS = 'address',
   DATE_TIME = 'dateTime',
   WALLET = 'wallet',
+  ORDER = 'order',
 }
