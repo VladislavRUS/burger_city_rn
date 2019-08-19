@@ -7,7 +7,12 @@ import { Text } from '../../components/Text';
 import { Routes } from '../../constants/Routes';
 import OrderPayment from '../../models/OrderPayment';
 import { Store } from '../../store';
-import { IconWrapper, OrderPaymentWrapper, Wrapper } from './Wallet.styles';
+import {
+  IconWrapper,
+  OrderPaymentWrapper,
+  TitleWrapper,
+  Wrapper,
+} from './Wallet.styles';
 
 @observer
 class Wallet extends React.Component {
@@ -27,9 +32,11 @@ class Wallet extends React.Component {
   public render() {
     return (
       <Wrapper>
-        <Text fontSize={20} fontWeight={700}>
-          Способ оплаты
-        </Text>
+        <TitleWrapper>
+          <Text fontSize={20} fontWeight={700}>
+            Способ оплаты
+          </Text>
+        </TitleWrapper>
         {Store.orderPayments.map(
           (orderPayment: OrderPayment, index: number) => {
             const isSelected = Store.orderPayment.name === orderPayment.name;
@@ -37,7 +44,9 @@ class Wallet extends React.Component {
 
             return (
               <OrderPaymentWrapper key={index} onPress={onPress}>
-                <Text>{orderPayment.name}</Text>
+                <Text fontSize={13} fontWeight={500}>
+                  {orderPayment.name}
+                </Text>
                 <IconWrapper isSelected={isSelected}>
                   <CheckmarkIcon color={isSelected ? '#fff' : '#000'} />
                 </IconWrapper>

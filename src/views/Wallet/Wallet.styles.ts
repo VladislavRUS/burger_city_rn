@@ -7,6 +7,10 @@ export const Wrapper = styled.View`
   padding: 20px;
 `;
 
+export const TitleWrapper = styled.View`
+  margin-bottom: 20px;
+`;
+
 export const OrderPaymentWrapper = styled(Ripple)`
   padding: 0 20px;
   display: flex;
@@ -17,7 +21,7 @@ export const OrderPaymentWrapper = styled(Ripple)`
   height: 52px;
   background-color: #fff;
   overflow: hidden;
-  margin-top: 24px;
+  margin-bottom: 24px;
 `;
 
 interface IIconWrapperProps {
@@ -30,7 +34,7 @@ export const IconWrapper = styled.View<IIconWrapperProps>`
   height: 20px;
   border-radius: 10px;
   background-color: ${props =>
-    props.isSelected ? Colors.MAIN_COLOR : Colors.LIGHT_GREY};
+    props.isSelected ? Colors.MAIN_COLOR : 'rgba(114, 124, 142, 0.2)'};
   padding-top: 7px;
   padding-left: 5px;
 `;
