@@ -38,6 +38,7 @@ class DeliveryDetails extends React.Component<NavigationScreenProps> {
       headerLeft: <ArrowHeaderLeft onPress={onPress} />,
     };
   };
+
   @observable
   private selectedOptionIndex = Options.NOW;
   private options = [
@@ -86,12 +87,9 @@ class DeliveryDetails extends React.Component<NavigationScreenProps> {
         )}
 
         <ButtonWrapper>
-          <Button
-            onPress={this.onSelectPress}
-            isDisabled={this.isButtonDisabled}
-          >
+          <Button onPress={this.onContinue} isDisabled={this.isButtonDisabled}>
             <Text fontSize={16} fontWeight={700} color={'#fff'}>
-              Выбрать
+              Продолжить
             </Text>
           </Button>
         </ButtonWrapper>
@@ -140,7 +138,7 @@ class DeliveryDetails extends React.Component<NavigationScreenProps> {
     navigation.navigate(Routes.DATE_TIME);
   };
 
-  private onSelectPress = () => {
+  private onContinue = () => {
     console.log('onSelectPress');
   };
 }

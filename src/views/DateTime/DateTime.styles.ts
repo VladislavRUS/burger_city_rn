@@ -17,3 +17,7 @@ export const DatePickerWrapper = styled.View`
 export const DateWrapper = styled.View`
   margin-bottom: 37px;
 `;
+
+export const ButtonWrapper = styled.View`
+  margin-top: auto;
+`;
