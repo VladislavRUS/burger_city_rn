@@ -19,3 +19,7 @@ export const SelectButtonWrapper = styled.View`
 export const AddressDetailWrapper = styled.View`
   margin-bottom: 26px;
 `;
+
+export const ButtonWrapper = styled.View`
+  margin-top: auto;
+`;

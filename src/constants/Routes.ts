@@ -9,4 +9,5 @@ export enum Routes {
   CART = 'cart',
   DELIVERY_DETAILS = 'deliveryDetails',
   ADDRESS = 'address',
+  DATE_TIME = 'dateTime',
 }

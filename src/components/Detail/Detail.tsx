@@ -1,12 +1,8 @@
 import React from 'react';
-import PencilIcon from '../../../components/Icons/PencilIcon/PencilIcon';
-import InfoPanel, {
-  InfoPanelLook,
-} from '../../../components/InfoPanel/InfoPanel';
-import { Text } from '../../../components/Text';
+import InfoPanel, { InfoPanelLook } from '../InfoPanel/InfoPanel';
+import { Text } from '../Text/index';
 import {
   IconWrapper,
-  InfoPanelTextWrapper,
   InfoPanelWrapper,
   SubtitleWrapper,
   TitleWrapper,
@@ -18,6 +14,7 @@ interface IDetailProps {
   subtitle?: string;
   panelText: string;
   onPress: () => void;
+  icon: React.ReactNode;
 }
 
 const Detail: React.FC<IDetailProps> = ({
@@ -25,6 +22,7 @@ const Detail: React.FC<IDetailProps> = ({
   subtitle,
   panelText,
   onPress,
+  icon,
 }) => (
   <Wrapper>
     <TitleWrapper>
@@ -44,9 +42,7 @@ const Detail: React.FC<IDetailProps> = ({
         <Text fontSize={13} fontWeight={600}>
           {panelText}
         </Text>
-        <IconWrapper>
-          <PencilIcon />
-        </IconWrapper>
+        <IconWrapper>{icon}</IconWrapper>
       </InfoPanel>
     </InfoPanelWrapper>
   </Wrapper>

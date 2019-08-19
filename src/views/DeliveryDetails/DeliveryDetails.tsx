@@ -1,20 +1,24 @@
 import React from 'react';
 
-import { observable } from 'mobx';
+import { computed, observable } from 'mobx';
 import { observer } from 'mobx-react';
+import moment from 'moment';
 import { NavigationScreenProp, NavigationScreenProps } from 'react-navigation';
 import ArrowHeaderLeft from '../../components/ArrowHeaderLeft/ArrowHeaderLeft';
+import Button from '../../components/Button/Button';
+import { Detail } from '../../components/Detail';
+import PencilIcon from '../../components/Icons/PencilIcon/PencilIcon';
 import SelectButton from '../../components/SelectButton/SelectButton';
 import { Text } from '../../components/Text';
 import { Routes } from '../../constants/Routes';
 import { Store } from '../../store';
 import {
   AddressDetailWrapper,
+  ButtonWrapper,
   SelectButtonWrapper,
   TitleWrapper,
   Wrapper,
 } from './DeliveryDetails.styles';
-import Detail from './Detail/Detail';
 
 enum Options {
   NOW = 0,
@@ -45,10 +49,19 @@ class DeliveryDetails extends React.Component<NavigationScreenProps> {
     },
   ];
 
+  @computed
+  get isButtonDisabled() {
+    return !Store.order.dateTime || !Store.order.addressDescription;
+  }
+
   public render() {
     const addressPanelText = Store.order.addressDescription
       ? Store.order.addressDescription.title
       : 'Адрес доставки';
+
+    const timePanelText = Store.order.dateTime
+      ? moment(Store.order.dateTime).format('DD-MM-YYYY HH:mm')
+      : 'Дата и Время доставки';
 
     return (
       <Wrapper>
@@ -59,16 +72,29 @@ class DeliveryDetails extends React.Component<NavigationScreenProps> {
             title={'Адрес доставки'}
             panelText={addressPanelText}
             onPress={this.onAddressPress}
+            icon={<PencilIcon />}
           />
         </AddressDetailWrapper>
         {this.selectedOptionIndex === Options.IN_ADVANCE && (
           <Detail
             title={'Дата и Время доставки'}
             subtitle={'Пожалуйста, выберите дату и время'}
-            panelText={'Дата и Время доставки'}
-            onPress={this.onAddressPress}
+            panelText={timePanelText}
+            onPress={this.onDateTimePress}
+            icon={<PencilIcon />}
           />
         )}
+
+        <ButtonWrapper>
+          <Button
+            onPress={this.onSelectPress}
+            isDisabled={this.isButtonDisabled}
+          >
+            <Text fontSize={16} fontWeight={700} color={'#fff'}>
+              Выбрать
+            </Text>
+          </Button>
+        </ButtonWrapper>
       </Wrapper>
     );
   }
@@ -97,11 +123,25 @@ class DeliveryDetails extends React.Component<NavigationScreenProps> {
 
   private onOptionPress = (index: number) => {
     this.selectedOptionIndex = index;
+
+    if (this.selectedOptionIndex === Options.IN_ADVANCE) {
+      const momentDate = moment().add(1, 'hour');
+      Store.setOrderDateTime(new Date(momentDate.valueOf()));
+    }
   };
 
   private onAddressPress = () => {
     const { navigation } = this.props;
     navigation.navigate(Routes.ADDRESS);
+  };
+
+  private onDateTimePress = () => {
+    const { navigation } = this.props;
+    navigation.navigate(Routes.DATE_TIME);
+  };
+
+  private onSelectPress = () => {
+    console.log('onSelectPress');
   };
 }
 

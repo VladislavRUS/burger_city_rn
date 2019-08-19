@@ -4,9 +4,10 @@ import ProductOrder from './ProductOrder';
 
 class Order {
   public productOrders: ProductOrder[];
-  public dateTime: Date;
   public isInAdvance: boolean;
   public isConfirmed: boolean;
+  @observable
+  public dateTime: Date;
   @observable
   public addressDescription: AddressDescription | null;
 

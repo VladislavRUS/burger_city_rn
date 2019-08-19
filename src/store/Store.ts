@@ -77,6 +77,11 @@ class Store {
 
     return descriptions;
   }
+
+  @action
+  public setOrderDateTime(date: Date) {
+    this.order.dateTime = date;
+  }
 }
 
 export default new Store();

@@ -13,6 +13,7 @@ import { Address } from '../Address';
 import { Burgers } from '../Burgers';
 import { Cart } from '../Cart';
 import { Customize } from '../Customize';
+import { DateTime } from '../DateTime';
 import { DeliveryDetails } from '../DeliveryDetails';
 import { Home } from '../Home';
 import { Start } from '../Start';
@@ -51,6 +52,12 @@ const commonStack = {
   },
   [Routes.ADDRESS]: {
     screen: Address,
+    navigationOptions: {
+      tabBarVisible: false,
+    },
+  },
+  [Routes.DATE_TIME]: {
+    screen: DateTime,
     navigationOptions: {
       tabBarVisible: false,
     },
