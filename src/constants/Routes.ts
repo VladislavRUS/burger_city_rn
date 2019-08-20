@@ -3,6 +3,7 @@ export enum Routes {
   BURGERS_NAVIGATOR = 'burgersNavigator',
   HOME_NAVIGATOR = 'homeNavigator',
   WALLET_NAVIGATOR = 'walletNavigator',
+  TRACK_NAVIGATOR = 'trackNavigator',
   START = 'start',
   HOME = 'home',
   BURGERS = 'burgers',
@@ -13,4 +14,5 @@ export enum Routes {
   DATE_TIME = 'dateTime',
   WALLET = 'wallet',
   ORDER = 'order',
+  TRACK = 'track',
 }

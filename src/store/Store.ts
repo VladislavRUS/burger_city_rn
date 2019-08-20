@@ -94,6 +94,14 @@ class Store {
   public setOrderPayment(orderPayment: OrderPayment) {
     this.orderPayment = orderPayment;
   }
+
+  @action
+  public async confirmOrder() {
+    await delay(Durations.REQUEST_DURATION);
+    this.order.isConfirmed = true;
+    this.confirmedOrder = Order.fromOrder(this.order);
+    this.order = new Order();
+  }
 }
 
 export default new Store();

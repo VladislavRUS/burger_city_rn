@@ -121,12 +121,13 @@ class Home extends React.Component<NavigationScreenProps> {
   };
 
   private onTrack = () => {
-    console.log('onTrack');
+    const { navigation } = this.props;
+    navigation.navigate(Routes.TRACK_NAVIGATOR);
   };
 
   private onOrder = () => {
     const { navigation } = this.props;
-    navigation.navigate(Routes.BURGERS);
+    navigation.navigate(Routes.BURGERS_NAVIGATOR);
   };
 }
 

@@ -3,6 +3,15 @@ import AddressDescription from './AddressDescription';
 import ProductOrder from './ProductOrder';
 
 class Order {
+  public static fromOrder(order: Order) {
+    const newOrder = new Order();
+    newOrder.productOrders = order.productOrders.slice();
+    newOrder.dateTime = order.dateTime;
+    newOrder.isInAdvance = order.isInAdvance;
+    newOrder.productOrders = order.productOrders.slice();
+    return newOrder;
+  }
+
   public productOrders: ProductOrder[];
   public isInAdvance: boolean;
   public isConfirmed: boolean;
@@ -32,15 +41,6 @@ class Order {
     } else {
       this.productOrders.push(newProductOrder);
     }
-  }
-
-  public fromOrder(order: Order) {
-    const newOrder = new Order();
-    newOrder.productOrders = order.productOrders.slice();
-    newOrder.dateTime = order.dateTime;
-    newOrder.isInAdvance = order.isInAdvance;
-    this.productOrders = order.productOrders.slice();
-    return newOrder;
   }
 }
 

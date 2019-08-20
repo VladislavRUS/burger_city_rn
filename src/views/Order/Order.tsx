@@ -12,28 +12,52 @@ import {
 
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
-import { NavigationScreenProp } from 'react-navigation';
+import {
+  NavigationAction,
+  NavigationActions,
+  NavigationScreenProp,
+  NavigationScreenProps,
+  StackActions,
+} from 'react-navigation';
 import ArrowHeaderLeft from '../../components/ArrowHeaderLeft/ArrowHeaderLeft';
 import { Button } from '../../components/Button';
 import { Text } from '../../components/Text';
+import { Routes } from '../../constants/Routes';
 import SurpriseModal from './SurpriseModal/SurpriseModal';
 
 @observer
-class Order extends React.Component {
+class Order extends React.Component<NavigationScreenProps> {
   public static navigationOptions = ({
     navigation,
   }: {
     navigation: NavigationScreenProp<any, any>;
   }) => {
+    const isHeaderLeftVisible = navigation.getParam('isHeaderLeftVisible');
+    const gesturesEnabled = navigation.getParam('gesturesEnabled');
+
     const onPress = () => navigation.goBack();
 
     return {
-      headerLeft: <ArrowHeaderLeft onPress={onPress} />,
+      gesturesEnabled,
+      headerLeft: isHeaderLeftVisible ? (
+        <ArrowHeaderLeft onPress={onPress} />
+      ) : null,
     };
   };
 
   @observable
-  private isConfirmed = false;
+  private isModalOpened = false;
+  @observable
+  private isConfirming = false;
+
+  constructor(props: NavigationScreenProps) {
+    super(props);
+
+    this.setNavigationParams({
+      isHeaderLeftVisible: true,
+      gesturesEnabled: true,
+    });
+  }
 
   public render() {
     return (
@@ -44,14 +68,22 @@ class Order extends React.Component {
           {this.renderOrderItems()}
         </ScrollableWrapper>
         <ButtonWrapper>
-          <Button onPress={this.onConfirm}>
-            <Text fontSize={16} fontWeight={700} color={'#fff'}>
-              Подтвердить
-            </Text>
-          </Button>
+          {Store.confirmedOrder ? (
+            <Button onPress={this.onTrack}>
+              <Text fontSize={16} fontWeight={700} color={'#fff'}>
+                Отследить
+              </Text>
+            </Button>
+          ) : (
+            <Button onPress={this.onConfirm} isLoading={this.isConfirming}>
+              <Text fontSize={16} fontWeight={700} color={'#fff'}>
+                Подтвердить
+              </Text>
+            </Button>
+          )}
         </ButtonWrapper>
         <SurpriseModal
-          isOpened={this.isConfirmed}
+          isOpened={this.isModalOpened}
           onRequestClose={this.onCloseModal}
         />
       </Wrapper>
@@ -66,12 +98,32 @@ class Order extends React.Component {
     );
   }
 
-  private onConfirm = () => {
-    this.isConfirmed = true;
+  private onConfirm = async () => {
+    this.isConfirming = true;
+
+    this.setNavigationParams({
+      isHeaderLeftVisible: false,
+      gesturesEnabled: false,
+    });
+
+    await Store.confirmOrder();
+    this.isConfirming = false;
+    this.isModalOpened = true;
   };
 
-  private onCloseModal = () => {
-    this.isConfirmed = false;
+  private setNavigationParams(params: any) {
+    const { navigation } = this.props;
+    navigation.setParams(params);
+  }
+
+  private onCloseModal = async () => {
+    this.isModalOpened = false;
+  };
+
+  private onTrack = () => {
+    const { navigation } = this.props;
+    navigation.popToTop();
+    navigation.navigate(Routes.TRACK_NAVIGATOR);
   };
 }
 

@@ -1,5 +1,7 @@
 import FastImage from 'react-native-fast-image';
 import styled from 'styled-components/native';
+
+// @ts-ignore
 import colaImg from '../../../../assets/drinks/cola_1.png';
 
 export const Overlay = styled.View`
