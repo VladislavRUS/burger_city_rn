@@ -10,11 +10,13 @@ import {
   Wrapper,
 } from './Order.styles';
 
+import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { NavigationScreenProp } from 'react-navigation';
 import ArrowHeaderLeft from '../../components/ArrowHeaderLeft/ArrowHeaderLeft';
 import { Button } from '../../components/Button';
 import { Text } from '../../components/Text';
+import SurpriseModal from './SurpriseModal/SurpriseModal';
 
 @observer
 class Order extends React.Component {
@@ -29,6 +31,9 @@ class Order extends React.Component {
       headerLeft: <ArrowHeaderLeft onPress={onPress} />,
     };
   };
+
+  @observable
+  private isConfirmed = false;
 
   public render() {
     return (
@@ -45,6 +50,10 @@ class Order extends React.Component {
             </Text>
           </Button>
         </ButtonWrapper>
+        <SurpriseModal
+          isOpened={this.isConfirmed}
+          onRequestClose={this.onCloseModal}
+        />
       </Wrapper>
     );
   }
@@ -58,7 +67,11 @@ class Order extends React.Component {
   }
 
   private onConfirm = () => {
-    console.log('onConfirm');
+    this.isConfirmed = true;
+  };
+
+  private onCloseModal = () => {
+    this.isConfirmed = false;
   };
 }
 
