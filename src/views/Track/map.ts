@@ -1,3 +1,4 @@
+export const map = `
 <!DOCTYPE html>
 <html>
   <head>
@@ -38,3 +39,4 @@
     ></script>
   </body>
 </html>
+`;

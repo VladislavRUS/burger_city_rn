@@ -10,15 +10,10 @@ import {
   Wrapper,
 } from './Order.styles';
 
-import { observable } from 'mobx';
+import { computed, observable } from 'mobx';
 import { observer } from 'mobx-react';
-import {
-  NavigationAction,
-  NavigationActions,
-  NavigationScreenProp,
-  NavigationScreenProps,
-  StackActions,
-} from 'react-navigation';
+import moment from 'moment';
+import { NavigationScreenProp, NavigationScreenProps } from 'react-navigation';
 import ArrowHeaderLeft from '../../components/ArrowHeaderLeft/ArrowHeaderLeft';
 import { Button } from '../../components/Button';
 import { Text } from '../../components/Text';
@@ -50,6 +45,11 @@ class Order extends React.Component<NavigationScreenProps> {
   @observable
   private isConfirming = false;
 
+  @computed
+  get order() {
+    return Store.confirmedOrder || Store.order;
+  }
+
   constructor(props: NavigationScreenProps) {
     super(props);
 
@@ -64,7 +64,10 @@ class Order extends React.Component<NavigationScreenProps> {
       <Wrapper>
         <ScrollableWrapper>
           <Header orderPrice={100} chargePrice={40} />
-          <Details dateTime={'12:55'} address={'Печерская 20а'} />
+          <Details
+            dateTime={moment(this.order.dateTime).format('HH:mm')}
+            address={this.order.addressDescription!.title}
+          />
           {this.renderOrderItems()}
         </ScrollableWrapper>
         <ButtonWrapper>
@@ -93,7 +96,7 @@ class Order extends React.Component<NavigationScreenProps> {
   private renderOrderItems() {
     return (
       <OrderItemsWrapper>
-        <OrderItems order={Store.order} />
+        <OrderItems order={this.order} />
       </OrderItemsWrapper>
     );
   }

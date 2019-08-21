@@ -6,9 +6,17 @@ class Order {
   public static fromOrder(order: Order) {
     const newOrder = new Order();
     newOrder.productOrders = order.productOrders.slice();
-    newOrder.dateTime = order.dateTime;
+    newOrder.dateTime = new Date(order.dateTime.getTime());
     newOrder.isInAdvance = order.isInAdvance;
-    newOrder.productOrders = order.productOrders.slice();
+
+    if (order.addressDescription) {
+      newOrder.addressDescription = new AddressDescription(
+        order.addressDescription.id,
+        order.addressDescription.title,
+        order.addressDescription.isValid,
+      );
+    }
+
     return newOrder;
   }
 

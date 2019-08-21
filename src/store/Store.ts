@@ -4,6 +4,7 @@ import { Durations } from '../constants/Durations';
 import AddressDescription from '../models/AddressDescription';
 import Burger from '../models/Burger';
 import Combo from '../models/Combo';
+import Coordinates from '../models/Coordinates';
 import Order from '../models/Order';
 import OrderPayment from '../models/OrderPayment';
 import ProductOrder from '../models/ProductOrder';
@@ -11,8 +12,7 @@ import { delay } from '../utils/delay';
 import Mock from './Mock';
 
 class Store {
-  public currentBurger: Burger | null = null;
-  public currentCombo: Combo | null = null;
+  @observable
   public confirmedOrder: Order | null = null;
   @observable
   public isRemember: boolean = false;
@@ -20,6 +20,8 @@ class Store {
   public order: Order;
   @observable
   public orderPayment: OrderPayment;
+  public currentBurger: Burger | null = null;
+  public currentCombo: Combo | null = null;
   public orderPayments: OrderPayment[];
   private apiKey!: string;
 
@@ -41,6 +43,10 @@ class Store {
 
   public init(config: any) {
     this.apiKey = config.apiKey;
+  }
+
+  public getApiKey(): string {
+    return this.apiKey;
   }
 
   @action
@@ -101,6 +107,12 @@ class Store {
     this.order.isConfirmed = true;
     this.confirmedOrder = Order.fromOrder(this.order);
     this.order = new Order();
+  }
+
+  public async getCoordinates(address: string): Promise<Coordinates> {
+    const jsonMap = await Api.getCoordinates(address, this.apiKey);
+    const result = jsonMap.results[0];
+    return Coordinates.fromGoogleResult(result);
   }
 }
 
