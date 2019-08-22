@@ -2,6 +2,7 @@ import React from 'react';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { NavigationScreenProp, NavigationScreenProps } from 'react-navigation';
 import { CartHeaderRight } from '../../components/CartHeaderRight';
+import { LanguageMenu } from '../../components/LanguageMenu';
 import { Sticker } from '../../components/Sticker';
 import { Text } from '../../components/Text';
 import { Routes } from '../../constants/Routes';
@@ -32,8 +33,9 @@ class Home extends React.Component<NavigationScreenProps & InjectedIntlProps> {
     const onPress = () => navigation.navigate(Routes.CART);
 
     return {
-      title: 'BurgerCity',
+      title: 'Burger City',
       headerRight: <CartHeaderRight onPress={onPress} />,
+      headerLeft: <LanguageMenu />,
     };
   };
 

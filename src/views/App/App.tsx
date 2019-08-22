@@ -201,7 +201,7 @@ const AppNavigator = createSwitchNavigator(
     },
   },
   {
-    initialRouteName: Routes.MAIN_NAVIGATOR,
+    initialRouteName: Routes.START,
   },
 );
 

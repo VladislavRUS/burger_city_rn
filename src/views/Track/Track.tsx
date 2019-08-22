@@ -5,8 +5,9 @@ import { observer } from 'mobx-react';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { WebView } from 'react-native-webview';
 import { NavigationScreenProp } from 'react-navigation';
-import CartHeaderRight from '../../components/CartHeaderRight/CartHeaderRight';
-import Loader from '../../components/Loader/Loader';
+import { CartHeaderRight } from '../../components/CartHeaderRight';
+import { LanguageMenu } from '../../components/LanguageMenu';
+import { Loader } from '../../components/Loader';
 import { Text } from '../../components/Text';
 import { Colors } from '../../constants/Colors';
 import { Routes } from '../../constants/Routes';
@@ -25,8 +26,9 @@ class Track extends React.Component<InjectedIntlProps> {
     const onPress = () => navigation.navigate(Routes.CART);
 
     return {
-      title: 'BurgerCity',
+      title: 'Burger City',
       headerRight: <CartHeaderRight onPress={onPress} />,
+      headerLeft: <LanguageMenu />,
     };
   };
 

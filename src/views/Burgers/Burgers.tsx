@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationScreenProp, NavigationScreenProps } from 'react-navigation';
-import CartHeaderRight from '../../components/CartHeaderRight/CartHeaderRight';
+import { CartHeaderRight } from '../../components/CartHeaderRight';
+import { LanguageMenu } from '../../components/LanguageMenu';
 import { Routes } from '../../constants/Routes';
 import Burger from '../../models/Burger';
 import { Store } from '../../store';
@@ -17,8 +18,9 @@ class Burgers extends React.Component<NavigationScreenProps> {
     const onPress = () => navigation.navigate(Routes.CART);
 
     return {
-      title: 'BurgerCity',
+      title: 'Burger City',
       headerRight: <CartHeaderRight onPress={onPress} />,
+      headerLeft: <LanguageMenu />,
     };
   };
 

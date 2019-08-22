@@ -70,6 +70,11 @@ class Store {
   }
 
   @action
+  public setLocale(locale: AvailableLocale) {
+    this.currentLocale = locale;
+  }
+
+  @action
   public async addToCart(productOrder: ProductOrder): Promise<void> {
     await delay(Durations.REQUEST_DURATION);
     if (this.confirmedOrder !== null) {

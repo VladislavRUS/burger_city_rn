@@ -4,6 +4,7 @@ import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { NavigationScreenProp } from 'react-navigation';
 import { CartHeaderRight } from '../../components/CartHeaderRight';
 import { CheckmarkIcon } from '../../components/Icons/CheckmarkIcon';
+import { LanguageMenu } from '../../components/LanguageMenu';
 import { Text } from '../../components/Text';
 import { Routes } from '../../constants/Routes';
 import OrderPayment from '../../models/OrderPayment';
@@ -25,8 +26,9 @@ class Wallet extends React.Component<InjectedIntlProps> {
     const onPress = () => navigation.navigate(Routes.CART);
 
     return {
-      title: 'BurgerCity',
+      title: 'Burger City',
       headerRight: <CartHeaderRight onPress={onPress} />,
+      headerLeft: <LanguageMenu />,
     };
   };
 

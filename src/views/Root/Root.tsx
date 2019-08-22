@@ -1,3 +1,4 @@
+import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { addLocaleData, IntlProvider } from 'react-intl';
@@ -11,12 +12,17 @@ addLocaleData([...ru, ...en]);
 
 @observer
 class Root extends React.Component {
+  @computed
+  get locale() {
+    return Store.currentLocale.languageCode;
+  }
+
   public render() {
     return (
       <IntlProvider
-        defaultLocale={'ru'}
-        locale={Store.currentLocale.languageCode}
-        messages={(translations as any)[Store.currentLocale.languageCode]}
+        key={this.locale}
+        locale={this.locale}
+        messages={(translations as any)[this.locale]}
       >
         <App />
       </IntlProvider>
