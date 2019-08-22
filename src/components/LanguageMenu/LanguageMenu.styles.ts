@@ -12,8 +12,9 @@ export const IconWrapper = styled.View`
   margin-left: 5px;
 `;
 
-export const Image = styled(FastImage)`
-  padding-left: 20px;
+export const Image = styled(FastImage).attrs({
+  resizeMode: FastImage.resizeMode.contain,
+})`
   width: 16px;
   height: 11px;
 `;

@@ -6,7 +6,8 @@
     "start": "react-native start",
     "test": "jest",
     "prettier": "prettier src/**/*.{ts,tsx} --write",
-    "build:apk": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ && cd android ^^"
+    "build:apk": "cd android && ./gradlew assembleRelease",
+    "postinstall": "npx jetify"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
@@ -59,6 +60,7 @@
     "eslint": "^6.1.0",
     "husky": "^3.0.3",
     "jest": "^24.8.0",
+    "jetifier": "^1.6.4",
     "lint-staged": "^9.2.1",
     "metro-react-native-babel-preset": "^0.55.0",
     "prettier": "^1.18.2",

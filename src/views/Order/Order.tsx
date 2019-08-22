@@ -1,4 +1,5 @@
 import React from 'react';
+import { BackHandler } from 'react-native';
 import OrderItems from '../../components/OrderItems/OrderItems';
 import Store from '../../store/Store';
 import { Details } from './Details';
@@ -23,6 +24,14 @@ import { SurpriseModal } from './SurpriseModal';
 
 @observer
 class Order extends React.Component<NavigationScreenProps & InjectedIntlProps> {
+  @computed
+  get order() {
+    return Store.confirmedOrder || Store.order;
+  }
+
+  get formatMessage() {
+    return this.props.intl.formatMessage;
+  }
   public static navigationOptions = ({
     navigation,
   }: {
@@ -46,15 +55,7 @@ class Order extends React.Component<NavigationScreenProps & InjectedIntlProps> {
   private isModalOpened = false;
   @observable
   private isConfirming = false;
-
-  @computed
-  get order() {
-    return Store.confirmedOrder || Store.order;
-  }
-
-  get formatMessage() {
-    return this.props.intl.formatMessage;
-  }
+  private backHandler: any;
 
   constructor(props: NavigationScreenProps & InjectedIntlProps) {
     super(props);
@@ -63,6 +64,17 @@ class Order extends React.Component<NavigationScreenProps & InjectedIntlProps> {
       isHeaderLeftVisible: true,
       gesturesEnabled: true,
     });
+  }
+
+  public componentDidMount() {
+    this.backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.onBackPress,
+    );
+  }
+
+  public componentWillUnmount() {
+    this.backHandler.remove();
   }
 
   public render() {
@@ -101,6 +113,17 @@ class Order extends React.Component<NavigationScreenProps & InjectedIntlProps> {
       </Wrapper>
     );
   }
+
+  private onBackPress = () => {
+    const { navigation } = this.props;
+
+    if (Store.confirmedOrder) {
+      navigation.popToTop();
+      return true;
+    }
+
+    return false;
+  };
 
   private renderOrderItems() {
     return (
