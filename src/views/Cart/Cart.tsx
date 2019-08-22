@@ -36,6 +36,7 @@ class Cart extends React.Component<NavigationScreenProps & InjectedIntlProps> {
     const onPress = () => navigation.goBack();
 
     return {
+      title: 'Burger City',
       headerLeft: <ArrowHeaderLeft onPress={onPress} />,
     };
   };

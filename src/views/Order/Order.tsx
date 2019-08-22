@@ -35,6 +35,7 @@ class Order extends React.Component<NavigationScreenProps & InjectedIntlProps> {
 
     return {
       gesturesEnabled,
+      title: 'Burger City',
       headerLeft: isHeaderLeftVisible ? (
         <ArrowHeaderLeft onPress={onPress} />
       ) : null,

@@ -38,6 +38,7 @@ class DeliveryDetails extends React.Component<
     const onPress = () => navigation.goBack();
 
     return {
+      title: 'Burger City',
       headerLeft: <ArrowHeaderLeft onPress={onPress} />,
     };
   };
