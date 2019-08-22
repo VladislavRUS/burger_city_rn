@@ -44,11 +44,13 @@ class Track extends React.Component<InjectedIntlProps> {
   public componentDidMount() {
     const { navigation } = this.props;
     navigation.addListener('didFocus', this.init);
+    navigation.addListener('didBlur', this.onBlur);
   }
 
   public componentWillUnmount() {
     const { navigation } = this.props;
     navigation.removeListener('didFocus', this.init);
+    navigation.removeListener('didBlur', this.onBlur);
   }
 
   public render() {
@@ -82,6 +84,10 @@ class Track extends React.Component<InjectedIntlProps> {
       </Wrapper>
     );
   }
+
+  private onBlur = () => {
+    this.isInitialized = false;
+  };
 
   private init = async () => {
     if (!Store.confirmedOrder) {
