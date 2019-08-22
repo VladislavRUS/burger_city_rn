@@ -1,4 +1,5 @@
 import React from 'react';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { NavigationScreenProp, NavigationScreenProps } from 'react-navigation';
 import { CartHeaderRight } from '../../components/CartHeaderRight';
 import { Sticker } from '../../components/Sticker';
@@ -22,7 +23,7 @@ import {
   Wrapper,
 } from './Home.styles';
 
-class Home extends React.Component<NavigationScreenProps> {
+class Home extends React.Component<NavigationScreenProps & InjectedIntlProps> {
   public static navigationOptions = ({
     navigation,
   }: {
@@ -36,11 +37,11 @@ class Home extends React.Component<NavigationScreenProps> {
     };
   };
 
-  private headerTexts = [
-    'World`s Greatest \nBurgers.',
-    'Tasty And Incredibly \nDelicious.',
-    'You Should Definitely \nTry It.',
-  ];
+  private headerTexts = ['home.greatest', 'home.tasty', 'home.tryIt'];
+
+  get formatMessage() {
+    return this.props.intl.formatMessage;
+  }
 
   public render() {
     return (
@@ -66,7 +67,7 @@ class Home extends React.Component<NavigationScreenProps> {
             {this.headerTexts.map((text: string, index: number) => (
               <SwiperSlide key={index}>
                 <Text fontSize={28} fontWeight={700} color={'#fff'}>
-                  {text}
+                  {this.formatMessage({ id: text })}
                 </Text>
               </SwiperSlide>
             ))}
@@ -80,14 +81,14 @@ class Home extends React.Component<NavigationScreenProps> {
     return (
       <StickersWrapper>
         <Sticker
-          title={'Track Here'}
-          subtitle={'Login to continue Burger City'}
+          title={this.formatMessage({ id: 'home.trackHere' })}
+          subtitle={this.formatMessage({ id: 'home.trackHereSubtitle' })}
           onPress={this.onTrack}
         />
         <StickersSpacer />
         <Sticker
-          title={'Order Here'}
-          subtitle={'Login to continue Burger City'}
+          title={this.formatMessage({ id: 'home.orderHere' })}
+          subtitle={this.formatMessage({ id: 'home.orderHereSubtitle' })}
           onPress={this.onOrder}
         />
       </StickersWrapper>
@@ -99,7 +100,7 @@ class Home extends React.Component<NavigationScreenProps> {
       <BestOffersWrapper>
         <OffersTitleWrapper>
           <Text fontSize={20} fontWeight={700} color={'#000'}>
-            Best Offers
+            {this.formatMessage({ id: 'home.bestOffers' })}
           </Text>
         </OffersTitleWrapper>
         <OffersList horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -131,4 +132,4 @@ class Home extends React.Component<NavigationScreenProps> {
   };
 }
 
-export default Home;
+export default injectIntl(Home);

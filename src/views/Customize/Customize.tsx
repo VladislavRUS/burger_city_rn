@@ -3,6 +3,7 @@ import { Text } from '../../components/Text';
 
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import FastImage, { FastImageSource } from 'react-native-fast-image';
 import { NavigationScreenProp, NavigationScreenProps } from 'react-navigation';
 import ArrowHeaderLeft from '../../components/ArrowHeaderLeft/ArrowHeaderLeft';
@@ -24,7 +25,12 @@ import {
 import Product from './Product/Product';
 
 @observer
-class Customize extends React.Component<NavigationScreenProps> {
+class Customize extends React.Component<
+  NavigationScreenProps & InjectedIntlProps
+> {
+  get formatMessage() {
+    return this.props.intl.formatMessage;
+  }
   public static navigationOptions = ({
     navigation,
   }: {
@@ -38,11 +44,11 @@ class Customize extends React.Component<NavigationScreenProps> {
     };
   };
 
+  private readonly currentProduct!: ProductModel;
   @observable
   private isLoading = false;
   @observable
   private quantity: number = 1;
-  private currentProduct!: ProductModel;
 
   constructor(props: any) {
     super(props);
@@ -69,10 +75,10 @@ class Customize extends React.Component<NavigationScreenProps> {
     return (
       <TitleWrapper>
         <Text fontSize={20} fontWeight={700}>
-          {this.currentProduct.keyName}
+          {this.formatMessage({ id: this.currentProduct.keyName })}
         </Text>
         <Text fontSize={15} fontWeight={600}>
-          Please customize your meal
+          {this.formatMessage({ id: 'customize.pleaseCustomize' })}
         </Text>
       </TitleWrapper>
     );
@@ -105,7 +111,7 @@ class Customize extends React.Component<NavigationScreenProps> {
         <CartButtonWrapper>
           <Button onPress={this.onAddToCart} isLoading={this.isLoading}>
             <Text color={'#fff'} fontSize={16} fontWeight={700}>
-              Add to cart
+              {this.formatMessage({ id: 'customize.addToCart' })}
             </Text>
           </Button>
         </CartButtonWrapper>
@@ -145,4 +151,4 @@ class Customize extends React.Component<NavigationScreenProps> {
   };
 }
 
-export default Customize;
+export default injectIntl(Customize);

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { WebView } from 'react-native-webview';
 import { NavigationScreenProp } from 'react-navigation';
 import CartHeaderRight from '../../components/CartHeaderRight/CartHeaderRight';
@@ -15,7 +16,7 @@ import { map } from './map';
 import { CenteredWrapper, Wrapper } from './Track.styles';
 
 @observer
-class Track extends React.Component {
+class Track extends React.Component<InjectedIntlProps> {
   public static navigationOptions = ({
     navigation,
   }: {
@@ -34,6 +35,10 @@ class Track extends React.Component {
   private coordinates!: Coordinates;
   private map!: string;
 
+  get formatMessage() {
+    return this.props.intl.formatMessage;
+  }
+
   public componentDidMount() {
     this.init();
   }
@@ -43,7 +48,7 @@ class Track extends React.Component {
       return (
         <CenteredWrapper>
           <Text fontSize={20} fontWeight={700}>
-            Нет активного заказа!
+            {this.formatMessage({ id: 'trackOrders.empty' })}
           </Text>
         </CenteredWrapper>
       );
@@ -97,4 +102,4 @@ class Track extends React.Component {
   }
 }
 
-export default Track;
+export default injectIntl(Track);

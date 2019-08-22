@@ -3,6 +3,7 @@ import React from 'react';
 import { computed, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import moment from 'moment';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { NavigationScreenProp, NavigationScreenProps } from 'react-navigation';
 import ArrowHeaderLeft from '../../components/ArrowHeaderLeft/ArrowHeaderLeft';
 import Button from '../../components/Button/Button';
@@ -26,7 +27,9 @@ enum Options {
 }
 
 @observer
-class DeliveryDetails extends React.Component<NavigationScreenProps> {
+class DeliveryDetails extends React.Component<
+  NavigationScreenProps & InjectedIntlProps
+> {
   public static navigationOptions = ({
     navigation,
   }: {
@@ -41,14 +44,14 @@ class DeliveryDetails extends React.Component<NavigationScreenProps> {
 
   @observable
   private selectedOptionIndex = Options.NOW;
-  private options = [
-    {
-      text: 'Сейчас',
-    },
-    {
-      text: 'Заранее',
-    },
+  private optionKeys = [
+    'deliveryDetails.orderNow',
+    'deliveryDetails.orderInAdvance',
   ];
+
+  get formatMessage() {
+    return this.props.intl.formatMessage;
+  }
 
   @computed
   get isButtonDisabled() {
@@ -58,11 +61,15 @@ class DeliveryDetails extends React.Component<NavigationScreenProps> {
   public render() {
     const addressPanelText = Store.order.addressDescription
       ? Store.order.addressDescription.title
-      : 'Адрес доставки';
+      : this.formatMessage({ id: 'deliveryDetails.deliveryAddress' });
 
     const timePanelText = Store.order.dateTime
-      ? moment(Store.order.dateTime).format('DD-MM-YYYY HH:mm')
-      : 'Дата и Время доставки';
+      ? moment(Store.order.dateTime).format(
+          this.formatMessage({
+            id: 'deliveryDetails.deliveryDateAndTimeFormat',
+          }),
+        )
+      : this.formatMessage({ id: 'deliveryDetails.deliveryDateAndTime' });
 
     return (
       <Wrapper>
@@ -70,7 +77,9 @@ class DeliveryDetails extends React.Component<NavigationScreenProps> {
         {this.renderSelectButton()}
         <AddressDetailWrapper>
           <Detail
-            title={'Адрес доставки'}
+            title={this.formatMessage({
+              id: 'deliveryDetails.deliveryAddress',
+            })}
             panelText={addressPanelText}
             onPress={this.onAddressPress}
             icon={<PencilIcon />}
@@ -78,8 +87,12 @@ class DeliveryDetails extends React.Component<NavigationScreenProps> {
         </AddressDetailWrapper>
         {this.selectedOptionIndex === Options.IN_ADVANCE && (
           <Detail
-            title={'Дата и Время доставки'}
-            subtitle={'Пожалуйста, выберите дату и время'}
+            title={this.formatMessage({
+              id: 'deliveryDetails.deliveryDateAndTime',
+            })}
+            subtitle={this.formatMessage({
+              id: 'deliveryDetails.pleaseSelectDateAndTime',
+            })}
             panelText={timePanelText}
             onPress={this.onDateTimePress}
             icon={<PencilIcon />}
@@ -89,7 +102,7 @@ class DeliveryDetails extends React.Component<NavigationScreenProps> {
         <ButtonWrapper>
           <Button onPress={this.onContinue} isDisabled={this.isButtonDisabled}>
             <Text fontSize={16} fontWeight={700} color={'#fff'}>
-              Продолжить
+              {this.formatMessage({ id: 'deliveryDetails.proceed' })}
             </Text>
           </Button>
         </ButtonWrapper>
@@ -101,17 +114,21 @@ class DeliveryDetails extends React.Component<NavigationScreenProps> {
     return (
       <TitleWrapper>
         <Text fontSize={15} fontWeight={600}>
-          Для продолжения укажите детали заказа
+          {this.formatMessage({ id: 'deliveryDetails.toProceed' })}
         </Text>
       </TitleWrapper>
     );
   }
 
   private renderSelectButton() {
+    const options = this.optionKeys.map(optionKey =>
+      this.formatMessage({ id: optionKey }),
+    );
+
     return (
       <SelectButtonWrapper>
         <SelectButton
-          options={this.options}
+          options={options}
           selectedOptionIndex={this.selectedOptionIndex}
           onOptionPress={this.onOptionPress}
         />
@@ -144,4 +161,4 @@ class DeliveryDetails extends React.Component<NavigationScreenProps> {
   };
 }
 
-export default DeliveryDetails;
+export default injectIntl(DeliveryDetails);

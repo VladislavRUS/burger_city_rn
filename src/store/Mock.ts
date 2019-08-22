@@ -1,3 +1,4 @@
+import AvailableLocale from '../models/AvailableLocale';
 import Burger from '../models/Burger';
 import Combo from '../models/Combo';
 import Drink from '../models/Drink';
@@ -53,6 +54,11 @@ class Mock {
     new OrderPayment('Google Pay'),
     new OrderPayment('Apple Pay'),
     new OrderPayment('Samsung Pay '),
+  ];
+
+  public static availableLocales: AvailableLocale[] = [
+    new AvailableLocale('Русский', 'ru', 'RU', Images.ru_flag),
+    new AvailableLocale('English', 'en', 'EN', Images.en_flag),
   ];
 }
 

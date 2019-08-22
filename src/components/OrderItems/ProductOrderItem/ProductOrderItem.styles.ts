@@ -25,6 +25,8 @@ export const Image = styled(FastImage).attrs({
 export const TextsWrapper = styled.View`
   display: flex;
   flex-direction: column;
+  width: 0;
+  flex-grow: 1;
 `;
 
 export const PriceWrapper = styled.View`

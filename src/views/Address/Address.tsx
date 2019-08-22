@@ -1,6 +1,7 @@
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { NavigationScreenProp, NavigationScreenProps } from 'react-navigation';
 import { debounce } from 'ts-debounce';
 import { ArrowHeaderLeft } from '../../components/ArrowHeaderLeft';
@@ -12,7 +13,9 @@ import { Store } from '../../store';
 import { DescriptionWrapper, Wrapper } from './Address.styles';
 
 @observer
-class Address extends React.Component<NavigationScreenProps> {
+class Address extends React.Component<
+  NavigationScreenProps & InjectedIntlProps
+> {
   public static navigationOptions = ({
     navigation,
   }: {
@@ -25,6 +28,10 @@ class Address extends React.Component<NavigationScreenProps> {
       headerLeft: <ArrowHeaderLeft onPress={onPress} />,
     };
   };
+
+  get formatMessage() {
+    return this.props.intl.formatMessage;
+  }
 
   @observable
   private searchStr = '';
@@ -42,7 +49,7 @@ class Address extends React.Component<NavigationScreenProps> {
   public render() {
     const searchText = Store.order.addressDescription
       ? Store.order.addressDescription.title
-      : 'Search';
+      : this.formatMessage({ id: 'address.search' });
 
     return (
       <Wrapper>
@@ -86,4 +93,4 @@ class Address extends React.Component<NavigationScreenProps> {
   }
 }
 
-export default Address;
+export default injectIntl(Address);

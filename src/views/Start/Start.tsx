@@ -1,6 +1,7 @@
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { NavigationScreenProps } from 'react-navigation';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
@@ -31,7 +32,7 @@ import {
 } from './Start.styles';
 
 @observer
-class Start extends React.Component<NavigationScreenProps> {
+class Start extends React.Component<NavigationScreenProps & InjectedIntlProps> {
   public static navigationOptions = {
     header: null,
   };
@@ -44,6 +45,10 @@ class Start extends React.Component<NavigationScreenProps> {
   private email = '';
   @observable
   private password = '';
+
+  get formatMessage() {
+    return this.props.intl.formatMessage;
+  }
 
   public render() {
     return (
@@ -61,12 +66,12 @@ class Start extends React.Component<NavigationScreenProps> {
       <StartedWrapper>
         <BigTitleWrapper>
           <Text fontSize={31} fontWeight={700} color={'#fff'}>
-            World's Greatest Burgers.
+            {this.formatMessage({ id: 'start.title' })}
           </Text>
         </BigTitleWrapper>
         <Button onPress={this.onPress} isLoading={this.isLoading}>
           <Text fontSize={16} color={'#fff'} fontWeight={700}>
-            Get start here
+            {this.formatMessage({ id: 'start.getStarted' })}
           </Text>
         </Button>
       </StartedWrapper>
@@ -79,10 +84,10 @@ class Start extends React.Component<NavigationScreenProps> {
         <FormWrapper>
           <TitleWrapper>
             <Text fontSize={22} fontWeight={700} color={'#fff'}>
-              Welcome Back!
+              {this.formatMessage({ id: 'login.welcomeBack' })}
             </Text>
             <Text fontSize={16} fontWeight={600} color={'#fff'}>
-              Login to continue Burger City
+              {this.formatMessage({ id: 'login.loginToContinue' })}
             </Text>
           </TitleWrapper>
           <InputsWrapper>
@@ -90,14 +95,14 @@ class Start extends React.Component<NavigationScreenProps> {
               <Input
                 value={this.email}
                 onChangeText={this.onEmailChange}
-                placeholder={'Email Address'}
+                placeholder={this.formatMessage({ id: 'login.email' })}
               />
             </InputWrapper>
             <Input
               value={this.password}
               onChangeText={this.onPasswordChange}
               isSecured={true}
-              placeholder={'Password'}
+              placeholder={this.formatMessage({ id: 'login.password' })}
             />
           </InputsWrapper>
           <TextButtonsWrapper>
@@ -110,31 +115,31 @@ class Start extends React.Component<NavigationScreenProps> {
                 fontWeight={600}
                 color={'rgba(255, 255, 255, 0.6)'}
               >
-                Remember me
+                {this.formatMessage({ id: 'login.rememberMe' })}
               </Text>
             </TextButton>
             <TextButtonWrapper>
-              <TextButton onPress={this.onToggleRemember}>
+              <TextButton>
                 <Text
                   fontSize={12}
                   fontWeight={600}
                   color={'rgba(255, 255, 255, 0.6)'}
                 >
-                  Forgot password?
+                  {this.formatMessage({ id: 'login.forgot' })}
                 </Text>
               </TextButton>
             </TextButtonWrapper>
           </TextButtonsWrapper>
           <Button onPress={this.onLogin} isLoading={this.isLoading}>
             <Text fontSize={16} color={'#fff'} fontWeight={700}>
-              Login
+              {this.formatMessage({ id: 'login.logIn' })}
             </Text>
           </Button>
         </FormWrapper>
         <BottomWrapper>
           <TextButton>
             <Text fontSize={12} fontWeight={600} color={Colors.MAIN_COLOR}>
-              New user? Sign up
+              {this.formatMessage({ id: 'login.newUser' })}
             </Text>
           </TextButton>
           <TextWrapper>
@@ -144,8 +149,7 @@ class Start extends React.Component<NavigationScreenProps> {
               color={'#fff'}
               isCentered={true}
             >
-              By signing up you indicate that you have read and agreed to the
-              Patch Terms of Service
+              {this.formatMessage({ id: 'login.termsOfService' })}
             </Text>
           </TextWrapper>
         </BottomWrapper>
@@ -182,4 +186,4 @@ class Start extends React.Component<NavigationScreenProps> {
   };
 }
 
-export default Start;
+export default injectIntl(Start);

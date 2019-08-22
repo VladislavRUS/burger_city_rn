@@ -1,4 +1,5 @@
 import React from 'react';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { Text } from '../../../components/Text';
 import { Colors } from '../../../constants/Colors';
 import {
@@ -16,21 +17,25 @@ interface IHeaderProps {
   chargePrice: number;
 }
 
-const Header: React.FC<IHeaderProps> = ({ orderPrice, chargePrice }) => (
+const Header: React.FC<IHeaderProps & InjectedIntlProps> = ({
+  orderPrice,
+  chargePrice,
+  intl,
+}) => (
   <Wrapper>
     <TitleWrapper>
       <Text fontSize={20} fontWeight={700} color={'#fff'}>
-        Подтверждение заказа
+        {intl.formatMessage({ id: 'order.reviewAndConfirm' })}
       </Text>
     </TitleWrapper>
     <SummaryWrapper>
       <Text fontSize={15} fontWeight={600} color={Colors.MAIN_COLOR}>
-        Всего
+        {intl.formatMessage({ id: 'order.total' })}
       </Text>
     </SummaryWrapper>
     <OrderWrapper>
       <Text fontSize={15} fontWeight={600} color={Colors.MAIN_COLOR}>
-        Заказ
+        {intl.formatMessage({ id: 'order.subtotal' })}
       </Text>
       <PriceWrapper>
         <Text fontSize={15} fontWeight={600} color={'#fff'}>
@@ -40,7 +45,7 @@ const Header: React.FC<IHeaderProps> = ({ orderPrice, chargePrice }) => (
     </OrderWrapper>
     <ChargeWrapper>
       <Text fontSize={15} fontWeight={600} color={Colors.MAIN_COLOR}>
-        Плата за доставку
+        {intl.formatMessage({ id: 'order.deliveryCharge' })}
       </Text>
       <PriceWrapper>
         <Text fontSize={15} fontWeight={600} color={'#fff'}>
@@ -61,4 +66,4 @@ const Header: React.FC<IHeaderProps> = ({ orderPrice, chargePrice }) => (
   </Wrapper>
 );
 
-export default Header;
+export default injectIntl(Header);

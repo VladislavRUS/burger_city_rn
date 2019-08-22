@@ -2,6 +2,7 @@ import { action, computed, observable } from 'mobx';
 import Api from '../api/Api';
 import { Durations } from '../constants/Durations';
 import AddressDescription from '../models/AddressDescription';
+import AvailableLocale from '../models/AvailableLocale';
 import Burger from '../models/Burger';
 import Combo from '../models/Combo';
 import Coordinates from '../models/Coordinates';
@@ -12,6 +13,15 @@ import { delay } from '../utils/delay';
 import Mock from './Mock';
 
 class Store {
+  @computed
+  get totalPrice() {
+    let sum = 0;
+    this.order.productOrders.forEach(productOrder => {
+      sum += productOrder.product.price;
+    });
+
+    return sum;
+  }
   @observable
   public confirmedOrder: Order | null = null;
   @observable
@@ -23,22 +33,17 @@ class Store {
   public currentBurger: Burger | null = null;
   public currentCombo: Combo | null = null;
   public orderPayments: OrderPayment[];
+  @observable
+  public currentLocale: AvailableLocale;
+  public availableLocales: AvailableLocale[];
   private apiKey!: string;
-
-  @computed
-  get totalPrice() {
-    let sum = 0;
-    this.order.productOrders.forEach(productOrder => {
-      sum += productOrder.product.price;
-    });
-
-    return sum;
-  }
 
   constructor() {
     this.order = new Order();
     this.orderPayments = Mock.orderPayments;
     this.orderPayment = this.orderPayments[0];
+    this.availableLocales = Mock.availableLocales;
+    this.currentLocale = this.availableLocales[1];
   }
 
   public init(config: any) {

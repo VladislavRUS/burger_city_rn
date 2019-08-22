@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react';
 import React from 'react';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { NavigationScreenProp } from 'react-navigation';
 import { CartHeaderRight } from '../../components/CartHeaderRight';
 import { CheckmarkIcon } from '../../components/Icons/CheckmarkIcon';
@@ -15,7 +16,7 @@ import {
 } from './Wallet.styles';
 
 @observer
-class Wallet extends React.Component {
+class Wallet extends React.Component<InjectedIntlProps> {
   public static navigationOptions = ({
     navigation,
   }: {
@@ -29,12 +30,16 @@ class Wallet extends React.Component {
     };
   };
 
+  get formatMessage() {
+    return this.props.intl.formatMessage;
+  }
+
   public render() {
     return (
       <Wrapper>
         <TitleWrapper>
           <Text fontSize={20} fontWeight={700}>
-            Способ оплаты
+            {this.formatMessage({ id: 'wallet.title' })}
           </Text>
         </TitleWrapper>
         {Store.orderPayments.map(
@@ -59,4 +64,4 @@ class Wallet extends React.Component {
   }
 }
 
-export default Wallet;
+export default injectIntl(Wallet);

@@ -4,12 +4,8 @@ import InfoPanel from '../InfoPanel/InfoPanel';
 import { Text } from '../Text';
 import { Option, Wrapper } from './SelectButton.styles';
 
-interface ISelectButtonOption {
-  text: string;
-}
-
 interface ISelectButtonProps {
-  options: ISelectButtonOption[];
+  options: string[];
   selectedOptionIndex: number;
   onOptionPress: (index: number) => void;
 }
@@ -31,7 +27,7 @@ class SelectButton extends React.PureComponent<ISelectButtonProps> {
                 fontWeight={700}
                 color={isActive ? '#fff' : Colors.MAIN_DARK_COLOR}
               >
-                {option.text}
+                {option}
               </Text>
             </Option>
           );

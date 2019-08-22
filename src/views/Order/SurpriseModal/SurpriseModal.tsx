@@ -1,4 +1,5 @@
 import React from 'react';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { Modal } from 'react-native';
 import { Button } from '../../../components/Button';
 import { Text } from '../../../components/Text';
@@ -16,11 +17,14 @@ import {
 interface ISurpriseModalProps {
   isOpened: boolean;
   onRequestClose: () => void;
+  prize: string;
 }
 
-const SurpriseModal: React.FC<ISurpriseModalProps> = ({
+const SurpriseModal: React.FC<ISurpriseModalProps & InjectedIntlProps> = ({
   isOpened,
   onRequestClose,
+  prize,
+  intl,
 }) => (
   <Modal
     visible={isOpened}
@@ -36,12 +40,12 @@ const SurpriseModal: React.FC<ISurpriseModalProps> = ({
         <PrizeImage />
         <TitleWrapper>
           <Text fontSize={15} fontWeight={700}>
-            Поздравляем!
+            {intl.formatMessage({ id: 'surpriseDialog.congratulations' })}
           </Text>
         </TitleWrapper>
         <InfoWrapper>
           <Text isCentered={true} fontSize={15} fontWeight={600}>
-            Спасибо за оплату! Вы выиграли бесплатную кока-колу!
+            {intl.formatMessage({ id: 'surpriseDialog.winPhrase' }) + prize}
           </Text>
         </InfoWrapper>
         <ButtonWrapper>
@@ -56,4 +60,4 @@ const SurpriseModal: React.FC<ISurpriseModalProps> = ({
   </Modal>
 );
 
-export default SurpriseModal;
+export default injectIntl(SurpriseModal);

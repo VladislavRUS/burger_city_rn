@@ -2,6 +2,7 @@ import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import moment from 'moment';
 import React from 'react';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import DatePicker from 'react-native-datepicker';
 import { NavigationScreenProp, NavigationScreenProps } from 'react-navigation';
 import ArrowHeaderLeft from '../../components/ArrowHeaderLeft/ArrowHeaderLeft';
@@ -19,7 +20,9 @@ import {
 } from './DateTime.styles';
 
 @observer
-class DateTime extends React.Component<NavigationScreenProps> {
+class DateTime extends React.Component<
+  NavigationScreenProps & InjectedIntlProps
+> {
   public static navigationOptions = ({
     navigation,
   }: {
@@ -32,36 +35,44 @@ class DateTime extends React.Component<NavigationScreenProps> {
     };
   };
 
+  get formatMessage() {
+    return this.props.intl.formatMessage;
+  }
+
   private datePicker?: DatePicker;
-  private dateFormat = 'DD-MM-YYYY';
-  private timeFormat = 'HH:mm';
   @observable
   private mode: string = 'date';
   @observable
   private dateTime: any;
 
-  constructor(props: NavigationScreenProps) {
+  constructor(props: NavigationScreenProps & InjectedIntlProps) {
     super(props);
     this.dateTime = moment(Store.order.dateTime);
   }
 
   public render() {
+    const dateFormat = this.formatMessage({ id: 'dateAndTime.dateFormat' });
+
     return (
       <Wrapper>
         <DateWrapper>
           <Detail
-            title={'Дата'}
-            subtitle={'Пожалуйста, укажите дату'}
-            panelText={moment(this.dateTime).format(this.dateFormat)}
+            title={this.formatMessage({ id: 'dateAndTime.pickupDate' })}
+            subtitle={this.formatMessage({ id: 'dateAndTime.selectDate' })}
+            panelText={moment(this.dateTime).format(
+              this.formatMessage({ id: 'dateAndTime.dateFormat' }),
+            )}
             icon={<CalendarIcon />}
             onPress={this.onOpenDatePicker}
           />
         </DateWrapper>
 
         <Detail
-          title={'Время'}
-          subtitle={'Пожалуйста, укажите время'}
-          panelText={moment(this.dateTime).format(this.timeFormat)}
+          title={this.formatMessage({ id: 'dateAndTime.pickupTime' })}
+          subtitle={this.formatMessage({ id: 'dateAndTime.selectTime' })}
+          panelText={moment(this.dateTime).format(
+            this.formatMessage({ id: 'dateAndTime.timeFormat' }),
+          )}
           icon={<WatchIcon />}
           onPress={this.onOpenTimePicker}
         />
@@ -71,21 +82,21 @@ class DateTime extends React.Component<NavigationScreenProps> {
             ref={this.handleDatePickerRef}
             date={this.dateTime}
             mode={this.mode}
-            format={this.dateFormat}
-            minDate={moment().format(this.dateFormat)}
+            format={dateFormat}
+            minDate={moment().format(dateFormat)}
             maxDate={moment()
               .add(2, 'days')
-              .format(this.dateFormat)}
+              .format(dateFormat)}
             onDateChange={this.onDateChange}
             showIcon={false}
             hideText={true}
-            locale={'ru'}
+            locale={'ru_RU'}
           />
         </DatePickerWrapper>
         <ButtonWrapper>
           <Button onPress={this.onSelect}>
             <Text fontSize={16} fontWeight={700} color={'#fff'}>
-              Выбрать
+              {this.formatMessage({ id: 'dateAndTime.select' })}
             </Text>
           </Button>
         </ButtonWrapper>
@@ -139,4 +150,4 @@ class DateTime extends React.Component<NavigationScreenProps> {
   };
 }
 
-export default DateTime;
+export default injectIntl(DateTime);

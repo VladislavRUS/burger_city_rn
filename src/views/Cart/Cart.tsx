@@ -2,6 +2,7 @@ import React from 'react';
 
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { Keyboard } from 'react-native';
 import { NavigationScreenProp, NavigationScreenProps } from 'react-navigation';
 import { ArrowHeaderLeft } from '../../components/ArrowHeaderLeft';
@@ -26,7 +27,7 @@ import {
 } from './Cart.styles';
 
 @observer
-class Cart extends React.Component<NavigationScreenProps> {
+class Cart extends React.Component<NavigationScreenProps & InjectedIntlProps> {
   public static navigationOptions = ({
     navigation,
   }: {
@@ -38,6 +39,10 @@ class Cart extends React.Component<NavigationScreenProps> {
       headerLeft: <ArrowHeaderLeft onPress={onPress} />,
     };
   };
+
+  get formatMessage() {
+    return this.props.intl.formatMessage;
+  }
 
   @observable
   private promoCode = '';
@@ -70,7 +75,7 @@ class Cart extends React.Component<NavigationScreenProps> {
           <BottomButtonWrapper>
             <Button onPress={this.onCheckout}>
               <Text fontSize={16} fontWeight={700} color={'#fff'}>
-                Продолжить
+                {this.formatMessage({ id: 'cart.checkout' })}
               </Text>
             </Button>
           </BottomButtonWrapper>
@@ -91,7 +96,7 @@ class Cart extends React.Component<NavigationScreenProps> {
     return (
       <EmptyWrapper>
         <Text fontSize={20} fontWeight={700}>
-          Корзина пуста!
+          {this.formatMessage({ id: 'cart.empty' })}
         </Text>
       </EmptyWrapper>
     );
@@ -101,7 +106,7 @@ class Cart extends React.Component<NavigationScreenProps> {
     return (
       <HeaderWrapper>
         <Text fontSize={18} fontWeight={700} color={'#fff'}>
-          Всего
+          {this.formatMessage({ id: 'cart.subTotal' })}
         </Text>
         <PriceWrapper>
           <Text fontSize={15} fontWeight={700} color={Colors.MAIN_COLOR}>
@@ -117,7 +122,7 @@ class Cart extends React.Component<NavigationScreenProps> {
       <OrderItemsWrapper>
         <IncludedTextWrapper>
           <Text fontSize={20} fontWeight={700}>
-            Выбраны
+            {this.formatMessage({ id: 'cart.includes' })}
           </Text>
         </IncludedTextWrapper>
         <OrderItems order={Store.order} />
@@ -130,13 +135,13 @@ class Cart extends React.Component<NavigationScreenProps> {
       <PromoWrapper>
         <PromoTextWrapper>
           <Text fontSize={20} fontWeight={700}>
-            Промо код
+            {this.formatMessage({ id: 'cart.promoCode' })}
           </Text>
         </PromoTextWrapper>
         <Input
           value={this.promoCode}
           onChangeText={this.onPromoChange}
-          placeholder={'Введите промокод'}
+          placeholder={this.formatMessage({ id: 'cart.enterPromoCode' })}
         />
       </PromoWrapper>
     );
@@ -152,4 +157,4 @@ class Cart extends React.Component<NavigationScreenProps> {
   };
 }
 
-export default Cart;
+export default injectIntl(Cart);

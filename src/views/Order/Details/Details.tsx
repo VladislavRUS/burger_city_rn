@@ -1,4 +1,5 @@
 import React from 'react';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { Text } from '../../../components/Text';
 import { Colors } from '../../../constants/Colors';
 import { TextWrapper, Wrapper } from './Details.styles';
@@ -8,11 +9,15 @@ interface IDetailsProps {
   address: string;
 }
 
-const Details: React.FC<IDetailsProps> = ({ dateTime, address }) => (
+const Details: React.FC<IDetailsProps & InjectedIntlProps> = ({
+  dateTime,
+  address,
+  intl,
+}) => (
   <Wrapper>
     <TextWrapper>
       <Text fontSize={16} fontWeight={700} color={'#fff'}>
-        Будет доставлено
+        {intl.formatMessage({ id: 'order.deliveringBy' })}
       </Text>
     </TextWrapper>
     {dateTime && (
@@ -28,4 +33,4 @@ const Details: React.FC<IDetailsProps> = ({ dateTime, address }) => (
   </Wrapper>
 );
 
-export default Details;
+export default injectIntl(Details);

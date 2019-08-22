@@ -92,7 +92,7 @@ HomeNavigator.navigationOptions = ({ navigation }: { navigation: any }) => {
     tabBarOptions,
     tabBarVisible,
     tabBarIcon: ({ focused }: { focused: boolean }) => (
-      <TabBar isFocused={focused} title={'Home'} icon={HomeIcon} />
+      <TabBar isFocused={focused} titleKey={'app.home'} icon={HomeIcon} />
     ),
   };
 };
@@ -117,32 +117,7 @@ BurgersNavigator.navigationOptions = ({ navigation }: { navigation: any }) => {
     tabBarOptions,
     tabBarVisible,
     tabBarIcon: ({ focused }: { focused: boolean }) => (
-      <TabBar isFocused={focused} title={'Our Burgers'} icon={BurgerIcon} />
-    ),
-  };
-};
-
-const WalletNavigator = createStackNavigator(
-  {
-    [Routes.WALLET]: {
-      screen: Wallet,
-    },
-    ...commonStack,
-  },
-  stackNavigatorOptions,
-);
-
-WalletNavigator.navigationOptions = ({ navigation }: { navigation: any }) => {
-  let tabBarVisible = true;
-  if (navigation.state.index > 0) {
-    tabBarVisible = false;
-  }
-
-  return {
-    tabBarOptions,
-    tabBarVisible,
-    tabBarIcon: ({ focused }: { focused: boolean }) => (
-      <TabBar isFocused={focused} title={'Wallet'} icon={WalletIcon} />
+      <TabBar isFocused={focused} titleKey={'app.burgers'} icon={BurgerIcon} />
     ),
   };
 };
@@ -167,7 +142,36 @@ TrackNavigator.navigationOptions = ({ navigation }: { navigation: any }) => {
     tabBarOptions,
     tabBarVisible,
     tabBarIcon: ({ focused }: { focused: boolean }) => (
-      <TabBar isFocused={focused} title={'Track'} icon={TrackIcon} />
+      <TabBar
+        isFocused={focused}
+        titleKey={'app.trackOrders'}
+        icon={TrackIcon}
+      />
+    ),
+  };
+};
+
+const WalletNavigator = createStackNavigator(
+  {
+    [Routes.WALLET]: {
+      screen: Wallet,
+    },
+    ...commonStack,
+  },
+  stackNavigatorOptions,
+);
+
+WalletNavigator.navigationOptions = ({ navigation }: { navigation: any }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+
+  return {
+    tabBarOptions,
+    tabBarVisible,
+    tabBarIcon: ({ focused }: { focused: boolean }) => (
+      <TabBar isFocused={focused} titleKey={'app.wallet'} icon={WalletIcon} />
     ),
   };
 };

@@ -13,15 +13,16 @@ import {
 import { computed, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import moment from 'moment';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { NavigationScreenProp, NavigationScreenProps } from 'react-navigation';
 import ArrowHeaderLeft from '../../components/ArrowHeaderLeft/ArrowHeaderLeft';
 import { Button } from '../../components/Button';
 import { Text } from '../../components/Text';
 import { Routes } from '../../constants/Routes';
-import SurpriseModal from './SurpriseModal/SurpriseModal';
+import { SurpriseModal } from './SurpriseModal';
 
 @observer
-class Order extends React.Component<NavigationScreenProps> {
+class Order extends React.Component<NavigationScreenProps & InjectedIntlProps> {
   public static navigationOptions = ({
     navigation,
   }: {
@@ -50,7 +51,11 @@ class Order extends React.Component<NavigationScreenProps> {
     return Store.confirmedOrder || Store.order;
   }
 
-  constructor(props: NavigationScreenProps) {
+  get formatMessage() {
+    return this.props.intl.formatMessage;
+  }
+
+  constructor(props: NavigationScreenProps & InjectedIntlProps) {
     super(props);
 
     this.setNavigationParams({
@@ -65,7 +70,9 @@ class Order extends React.Component<NavigationScreenProps> {
         <ScrollableWrapper>
           <Header orderPrice={100} chargePrice={40} />
           <Details
-            dateTime={moment(this.order.dateTime).format('HH:mm')}
+            dateTime={moment(this.order.dateTime).format(
+              this.formatMessage({ id: 'order.dateTimeFormat' }),
+            )}
             address={this.order.addressDescription!.title}
           />
           {this.renderOrderItems()}
@@ -74,13 +81,13 @@ class Order extends React.Component<NavigationScreenProps> {
           {Store.confirmedOrder ? (
             <Button onPress={this.onTrack}>
               <Text fontSize={16} fontWeight={700} color={'#fff'}>
-                Отследить
+                {this.formatMessage({ id: 'order.trackOrder' })}
               </Text>
             </Button>
           ) : (
             <Button onPress={this.onConfirm} isLoading={this.isConfirming}>
               <Text fontSize={16} fontWeight={700} color={'#fff'}>
-                Подтвердить
+                {this.formatMessage({ id: 'order.confirm' })}
               </Text>
             </Button>
           )}
@@ -88,6 +95,7 @@ class Order extends React.Component<NavigationScreenProps> {
         <SurpriseModal
           isOpened={this.isModalOpened}
           onRequestClose={this.onCloseModal}
+          prize={this.formatMessage({ id: 'order.prize' })}
         />
       </Wrapper>
     );
@@ -130,4 +138,4 @@ class Order extends React.Component<NavigationScreenProps> {
   };
 }
 
-export default Order;
+export default injectIntl(Order);

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { FastImageSource } from 'react-native-fast-image';
 import { Text } from '../../../components/Text';
 import { Colors } from '../../../constants/Colors';
@@ -15,17 +15,18 @@ interface IProductOrderItemProps {
   productOrder: ProductOrder;
 }
 
-const ProductOrderItem: React.FC<IProductOrderItemProps> = ({
-  productOrder,
-}) => (
+const ProductOrderItem: React.FC<
+  IProductOrderItemProps & InjectedIntlProps
+> = ({ productOrder, intl }) => (
   <Wrapper>
     <Image source={productOrder.product.imageUrl as FastImageSource} />
     <TextsWrapper>
-      <Text fontSize={14} fontWeight={700}>
-        {productOrder.quantity} {productOrder.product.keyName}
+      <Text fontSize={14} fontWeight={700} numberOfLines={2}>
+        {productOrder.quantity}{' '}
+        {intl.formatMessage({ id: productOrder.product.keyName })}
       </Text>
       <Text fontSize={14} fontWeight={600} color={Colors.DARK_ICON_COLOR}>
-        {productOrder.product.keyName}
+        {intl.formatMessage({ id: productOrder.product.keyName })}
       </Text>
     </TextsWrapper>
     <PriceWrapper>
@@ -36,4 +37,4 @@ const ProductOrderItem: React.FC<IProductOrderItemProps> = ({
   </Wrapper>
 );
 
-export default ProductOrderItem;
+export default injectIntl(ProductOrderItem);

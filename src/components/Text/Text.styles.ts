@@ -12,4 +12,5 @@ export const StyledText = styled.Text<IStyledTextProps>`
   font-weight: ${props => props.fontWeight};
   color: ${props => props.color};
   text-align: ${props => (props.isCentered ? 'center' : 'left')};
+  flex-wrap: wrap;
 `;

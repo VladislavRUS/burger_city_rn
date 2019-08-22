@@ -16,6 +16,9 @@ import combo_2 from '../../assets/combos/combo_2.jpg';
 import combo_3 from '../../assets/combos/combo_3.jpg';
 import combo_4 from '../../assets/combos/combo_4.jpg';
 
+import en_flag from '../../assets/icons/en-flag.png';
+import ru_flag from '../../assets/icons/ru-flag.png';
+
 export {
   burger_1,
   burger_2,
@@ -31,4 +34,6 @@ export {
   combo_2,
   combo_3,
   combo_4,
+  ru_flag,
+  en_flag,
 };
