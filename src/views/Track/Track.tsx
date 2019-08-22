@@ -42,7 +42,13 @@ class Track extends React.Component<InjectedIntlProps> {
   }
 
   public componentDidMount() {
-    this.init();
+    const { navigation } = this.props;
+    navigation.addListener('didFocus', this.init);
+  }
+
+  public componentWillUnmount() {
+    const { navigation } = this.props;
+    navigation.removeListener('didFocus', this.init);
   }
 
   public render() {
@@ -66,20 +72,18 @@ class Track extends React.Component<InjectedIntlProps> {
 
     return (
       <Wrapper>
-        {this.isInitialized && (
-          <WebView
-            originWhitelist={['*']}
-            source={{ html: this.map }}
-            style={{ width: '100%', height: '100%' }}
-            javaScriptEnabled={true}
-            domStorageEnabled={true}
-          />
-        )}
+        <WebView
+          originWhitelist={['*']}
+          source={{ html: this.map }}
+          style={{ width: '100%', height: '100%' }}
+          javaScriptEnabled={true}
+          domStorageEnabled={true}
+        />
       </Wrapper>
     );
   }
 
-  private async init() {
+  private init = async () => {
     if (!Store.confirmedOrder) {
       return;
     }
@@ -91,7 +95,7 @@ class Track extends React.Component<InjectedIntlProps> {
       .replace('LONGITUDE', this.coordinates.latitude.toString());
 
     this.isInitialized = true;
-  }
+  };
 
   private async getCoordinates() {
     try {
