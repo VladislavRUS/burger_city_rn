@@ -1,3 +1,4 @@
+import AddressDescription from '../models/AddressDescription';
 import AvailableLocale from '../models/AvailableLocale';
 import Burger from '../models/Burger';
 import Combo from '../models/Combo';
@@ -59,6 +60,24 @@ class Mock {
   public static availableLocales: AvailableLocale[] = [
     new AvailableLocale('Русский', 'ru', 'RU', Images.ru_flag),
     new AvailableLocale('English', 'en', 'EN', Images.en_flag),
+  ];
+
+  public static addressDescriptions: AddressDescription[] = [
+    new AddressDescription(
+      '129348',
+      '129348, Москва, ул.Красная Сосна, 33, кв.33',
+      true,
+    ),
+    new AddressDescription(
+      '115516',
+      '115516, Москва, ул.Товарищеская, 91, кв.15',
+      true,
+    ),
+    new AddressDescription(
+      '109316',
+      '109316, Москва, ул.Стройковская, 78, кв.46',
+      true,
+    ),
   ];
 }
 

@@ -14,7 +14,7 @@ import { Routes } from '../../constants/Routes';
 import Coordinates from '../../models/Coordinates';
 import Store from '../../store/Store';
 import { map } from './map';
-import { CenteredWrapper, Wrapper } from './Track.styles';
+import { CenteredWrapper, FakeMapImage, Wrapper } from './Track.styles';
 
 @observer
 class Track extends React.Component<InjectedIntlProps> {
@@ -34,6 +34,10 @@ class Track extends React.Component<InjectedIntlProps> {
 
   @observable
   private isInitialized = false;
+  @observable
+  private isLoading = false;
+  @observable
+  private useFakeMap = false;
   private coordinates!: Coordinates;
   private map!: string;
 
@@ -64,7 +68,7 @@ class Track extends React.Component<InjectedIntlProps> {
       );
     }
 
-    if (!this.isInitialized) {
+    if (this.isLoading) {
       return (
         <CenteredWrapper>
           <Loader color={Colors.LIGHT_GREY} />
@@ -72,21 +76,29 @@ class Track extends React.Component<InjectedIntlProps> {
       );
     }
 
+    if (this.useFakeMap) {
+      return <FakeMapImage />;
+    }
+
     return (
       <Wrapper>
-        <WebView
-          originWhitelist={['*']}
-          source={{ html: this.map }}
-          style={{ width: '100%', height: '100%' }}
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
-        />
+        {this.isInitialized && (
+          <WebView
+            originWhitelist={['*']}
+            source={{ html: this.map }}
+            style={{ width: '100%', height: '100%' }}
+            javaScriptEnabled={true}
+            domStorageEnabled={true}
+          />
+        )}
       </Wrapper>
     );
   }
 
   private onBlur = () => {
     this.isInitialized = false;
+    this.useFakeMap = false;
+    this.isLoading = false;
   };
 
   private init = async () => {
@@ -99,17 +111,20 @@ class Track extends React.Component<InjectedIntlProps> {
       .replace('API_KEY', Store.getApiKey())
       .replace('LATITUDE', this.coordinates.latitude.toString())
       .replace('LONGITUDE', this.coordinates.latitude.toString());
-
-    this.isInitialized = true;
   };
 
   private async getCoordinates() {
+    this.isLoading = true;
+
     try {
       this.coordinates = await Store.getCoordinates(
         Store.confirmedOrder!.addressDescription!.title,
       );
+      this.isInitialized = true;
     } catch (e) {
-      console.log(e);
+      this.useFakeMap = true;
+    } finally {
+      this.isLoading = false;
     }
   }
 }

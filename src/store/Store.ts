@@ -93,6 +93,11 @@ class Store {
     const descriptions: AddressDescription[] = [];
 
     const json = await Api.findPlace(input, this.apiKey);
+
+    if (json.error_message) {
+      throw json.error_message;
+    }
+
     const predictions = json.predictions;
     predictions.forEach((prediction: any) => {
       descriptions.push(AddressDescription.fromJson(prediction));
@@ -120,8 +125,13 @@ class Store {
   }
 
   public async getCoordinates(address: string): Promise<Coordinates> {
-    const jsonMap = await Api.getCoordinates(address, this.apiKey);
-    const result = jsonMap.results[0];
+    const json = await Api.getCoordinates(address, this.apiKey);
+
+    if (json.error_message) {
+      throw json.error_message;
+    }
+
+    const result = json.results[0];
     return Coordinates.fromGoogleResult(result);
   }
 }

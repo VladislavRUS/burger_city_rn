@@ -19,6 +19,8 @@ import combo_4 from '../../assets/combos/combo_4.jpg';
 import en_flag from '../../assets/icons/en-flag.png';
 import ru_flag from '../../assets/icons/ru-flag.png';
 
+import fake_map from '../../assets/images/fake-map.png';
+
 export {
   burger_1,
   burger_2,
@@ -36,4 +38,5 @@ export {
   combo_4,
   ru_flag,
   en_flag,
+  fake_map,
 };

@@ -10,6 +10,7 @@ import { Input } from '../../components/Input';
 import { Text } from '../../components/Text';
 import AddressDescription from '../../models/AddressDescription';
 import { Store } from '../../store';
+import Mock from '../../store/Mock';
 import { DescriptionWrapper, Wrapper } from './Address.styles';
 
 @observer
@@ -42,7 +43,7 @@ class Address extends React.Component<
     try {
       this.descriptions = await Store.findPlace(searchStr);
     } catch (e) {
-      console.log(e);
+      this.descriptions = Mock.addressDescriptions;
     }
   }, 300);
 
