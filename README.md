@@ -2,7 +2,7 @@
 
 Design: https://www.behance.net/gallery/77742735/Burger-City-Free-Adobe-XD-UI-kit
 
-Demo ReactNative app made for comparison with Flutter
+Demo ReactNative app made for comparison with Flutter (https://github.com/VladislavRUS/burger_city_flutter)
 
 ## Getting Started
 
