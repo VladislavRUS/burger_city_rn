@@ -18,10 +18,12 @@ import {
   BottomWrapper,
   CheckboxWrapper,
   FormWrapper,
+  ImageBackground,
   InputsWrapper,
   InputWrapper,
   LoginWrapper,
   LogoWrapper,
+  ScrollableWrapper,
   StartedWrapper,
   TextButton,
   TextButtonsWrapper,
@@ -53,10 +55,13 @@ class Start extends React.Component<NavigationScreenProps & InjectedIntlProps> {
   public render() {
     return (
       <Wrapper>
-        <LogoWrapper>
-          <Logo />
-        </LogoWrapper>
-        {this.isStarted ? this.renderLogin() : this.renderStarted()}
+        <ImageBackground />
+        <ScrollableWrapper>
+          <LogoWrapper>
+            <Logo />
+          </LogoWrapper>
+          {this.isStarted ? this.renderLogin() : this.renderStarted()}
+        </ScrollableWrapper>
       </Wrapper>
     );
   }

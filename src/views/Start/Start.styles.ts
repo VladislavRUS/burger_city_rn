@@ -1,8 +1,24 @@
+import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import backgroundImg from '../../../assets/images/bg-darken.png';
+const { width, height } = Dimensions.get('window');
 
-export const Wrapper = styled.ImageBackground.attrs({ source: backgroundImg })`
+export const Wrapper = styled.View`
   flex: 1;
+`;
+
+export const ScrollableWrapper = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    flexGrow: 1,
+  },
+})``;
+
+export const ImageBackground = styled.Image.attrs({ source: backgroundImg })`
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: ${width}px;
+  height: ${height}px;
 `;
 
 export const StartedWrapper = styled.View`
@@ -21,21 +37,17 @@ export const BigTitleWrapper = styled.View`
 `;
 
 export const LoginWrapper = styled.View`
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  flex: 1;
+  margin-top: 60px;
+  padding: 0 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 30px;
-  margin-top: 120px;
 `;
 
 export const LogoWrapper = styled.View`
-  margin-top: 50px;
+  margin-top: 85px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,6 +74,7 @@ export const InputWrapper = styled.View`
 `;
 
 export const BottomWrapper = styled.View`
+  margin-bottom: 26px;
   margin-top: 40px;
   position: relative;
   display: flex;

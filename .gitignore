@@ -64,3 +64,4 @@ buck-out/
 /android/key.properties
 
 /config.js
+/assets/config.json
