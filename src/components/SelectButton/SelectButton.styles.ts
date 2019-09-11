@@ -16,7 +16,7 @@ interface IOptionProps {
 }
 
 export const Option = styled.TouchableOpacity<IOptionProps>`
-  flex-grow: 1;
+  width: 50%;
   height: 100%;
   display: flex;
   align-items: center;

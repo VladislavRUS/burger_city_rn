@@ -4,6 +4,8 @@ import React from 'react';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 import { NavigationScreenProps } from 'react-navigation';
 import { Button } from '../../components/Button';
+import { LetterIcon } from '../../components/Icons/LetterIcon';
+import { LockIcon } from '../../components/Icons/LockIcon';
 import { Input } from '../../components/Input';
 import { Logo } from '../../components/Logo';
 import { RoundedCheckbox } from '../../components/RoundedCheckbox';
@@ -101,6 +103,7 @@ class Start extends React.Component<NavigationScreenProps & InjectedIntlProps> {
                 value={this.email}
                 onChangeText={this.onEmailChange}
                 placeholder={this.formatMessage({ id: 'login.email' })}
+                icon={<LetterIcon />}
               />
             </InputWrapper>
             <Input
@@ -108,6 +111,7 @@ class Start extends React.Component<NavigationScreenProps & InjectedIntlProps> {
               onChangeText={this.onPasswordChange}
               isSecured={true}
               placeholder={this.formatMessage({ id: 'login.password' })}
+              icon={<LockIcon />}
             />
           </InputsWrapper>
           <TextButtonsWrapper>
