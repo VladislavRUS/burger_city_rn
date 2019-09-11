@@ -43,7 +43,7 @@ class Store {
     this.orderPayments = Mock.orderPayments;
     this.orderPayment = this.orderPayments[0];
     this.availableLocales = Mock.availableLocales;
-    this.currentLocale = this.availableLocales[1];
+    this.currentLocale = this.availableLocales[0];
   }
 
   public init(config: any) {

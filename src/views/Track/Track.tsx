@@ -39,6 +39,7 @@ class Track extends React.Component<InjectedIntlProps> {
   @observable
   private useFakeMap = false;
   private coordinates!: Coordinates;
+  @observable
   private map!: string;
 
   get formatMessage() {
@@ -110,7 +111,7 @@ class Track extends React.Component<InjectedIntlProps> {
     this.map = map
       .replace('API_KEY', Store.getApiKey())
       .replace('LATITUDE', this.coordinates.latitude.toString())
-      .replace('LONGITUDE', this.coordinates.latitude.toString());
+      .replace('LONGITUDE', this.coordinates.longitude.toString());
   };
 
   private async getCoordinates() {
